@@ -11,7 +11,6 @@
 
 class CandidateBoxTextures {
 public:
-    static sf::Color* GreyColor;
     static sf::Texture Textures[10];
     static sf::Texture CheckedTextures[10];
 

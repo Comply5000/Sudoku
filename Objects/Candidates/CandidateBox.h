@@ -15,6 +15,8 @@
 class CandidateBox : public BaseObject{
 public:
     static std::array<std::array<std::vector<CandidateBox>, 9>, 9> UpdateCandidates(std::array<std::array<int, 9>, 9> numbers,std::array<std::array<BoxObject, 9>, 9> boxes);
+    void SetNumberTexture(int number);
+    void SetCheckedNumberTexture(int number);
 };
 
 

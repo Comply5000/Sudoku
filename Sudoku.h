@@ -39,17 +39,24 @@ class Sudoku {
     UpButton* _upButton;
     DownButton* _downButton;
     Logo* _logo;
+
+    //candidates logic
     std::array<std::array<std::vector<CandidateBox>, 9>, 9> _candidateBoxes;
+    bool _isCandidateChecked[9][9][10] = {};
+    std::array<std::array<std::vector<int>, 9>, 9> _candidateNumbers;
+
 
 
     //functions
     void InitWindow();
     sf::Vector2f GetMousePosition();
     void PoolEvent();
+    void ResetBoard();
 
     void HoverMenuButtons();
     void ClickMenuButtons();
     void ClickBoxes();
+    void ClickCandidatesAndUpdateColor();
 
 public:
     Sudoku();

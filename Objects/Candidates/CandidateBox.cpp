@@ -4,6 +4,8 @@
 
 #include "CandidateBox.h"
 #include "CandidateBoxTextures.h"
+#include "../Boxes/BoxTextures.h"
+#include "../../Shared/CustomColors.h"
 
 std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCandidates(std::array<std::array<int, 9>, 9> numbers, std::array<std::array<BoxObject, 9>, 9> boxes)
 {
@@ -42,5 +44,15 @@ std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCand
     }
 
     return candidateBoxes;
+}
+
+void CandidateBox::SetNumberTexture(int number)
+{
+    Shape.setTexture(&CandidateBoxTextures::Textures[number]);
+}
+
+void CandidateBox::SetCheckedNumberTexture(int number)
+{
+    Shape.setTexture(&CandidateBoxTextures::CheckedTextures[number]);
 }
 

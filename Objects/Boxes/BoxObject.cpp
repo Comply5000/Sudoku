@@ -4,6 +4,7 @@
 
 #include "BoxObject.h"
 #include "BoxTextures.h"
+#include "../../Shared/CustomColors.h"
 
 std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
 
@@ -30,14 +31,6 @@ std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
     }
 
     return boxes;
-}
-
-void BoxObject::SetWhiteColor() {
-    Shape.setFillColor(sf::Color::White);
-}
-
-void BoxObject::SetGreyColor() {
-    Shape.setFillColor(*BoxTextures::GreyColor);
 }
 
 void BoxObject::SetNumberTexture(int number) {

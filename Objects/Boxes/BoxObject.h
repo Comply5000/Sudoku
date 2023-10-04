@@ -12,8 +12,6 @@
 class BoxObject : public BaseObject {
 public:
     static std::array<std::array<BoxObject, 9>, 9> InitBoxes();
-    void SetWhiteColor();
-    void SetGreyColor();
     void SetNumberTexture(int number);
 };
 

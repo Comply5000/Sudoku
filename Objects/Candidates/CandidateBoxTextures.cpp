@@ -4,7 +4,6 @@
 
 #include "CandidateBoxTextures.h"
 
-sf::Color* CandidateBoxTextures::GreyColor = nullptr;
 sf::Texture CandidateBoxTextures::Textures[10];
 sf::Texture CandidateBoxTextures::CheckedTextures[10];
 

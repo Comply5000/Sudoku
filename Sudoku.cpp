@@ -45,13 +45,15 @@ bool Sudoku::IsRunning() const {
 
 void Sudoku::Update() {
     IsRunning();
+
+    _candidateNumbers = MethodsExtension::FindCandidates(_numbers);
+    _candidateBoxes = CandidateBox::UpdateCandidates(_numbers, _boxes);
     GetMousePosition();
     PoolEvent();
     HoverMenuButtons();
     ClickMenuButtons();
     ClickBoxes();
-
-    _candidateBoxes = CandidateBox::UpdateCandidates(_numbers, _boxes);
+    ClickCandidatesAndUpdateColor();
 }
 
 void Sudoku::Render() {
@@ -162,24 +164,7 @@ void Sudoku::ClickMenuButtons()
 
     if (_resetButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
     {
-        for (int i = 0;i < 9;i++)
-        {
-            for (int j = 0;j < 9;j++)
-            {
-                _boxes[i][j].SetNumberTexture(0);
-                _numbers[i][j] = 0;
-//                for (int k = 1;k < 10;k++)
-//                    this->checkedCand[i][j][k] = false;
-            }
-        }
-
-//        for (int i = 0;i < 9;i++)
-//            for (int j = 0;j < 9;j++)
-//                for (int k = 0;k < 10;k++)
-//                {
-//                    this->candMethod[i][j][k] = false;
-//                    this->candMethodDel[i][j][k] = false;
-//                }
+        ResetBoard();
     }
 }
 
@@ -390,5 +375,53 @@ void Sudoku::ClickBoxes()
     }
 }
 
+void Sudoku::ClickCandidatesAndUpdateColor() {
+    for (int i = 0; i < 9; i++)
+    {
+        for (int j = 0; j < 9; j++)
+        {
+            for (int k = 0; k < _candidateBoxes[i][j].size(); k++)
+            {
+                if (_candidateBoxes[i][j][k].IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+                {
+                    _isAnyButtonPressed = true;
 
+                    if(_isCandidateChecked[i][j][_candidateNumbers[i][j][k]])
+                        _isCandidateChecked[i][j][_candidateNumbers[i][j][k]] = false;
+                    else
+                        _isCandidateChecked[i][j][_candidateNumbers[i][j][k]] = true;
+                }
+
+                if (_isCandidateChecked[i][j][_candidateNumbers[i][j][k]])
+                    _candidateBoxes[i][j][k].SetCheckedNumberTexture(_candidateNumbers[i][j][k]);
+                else
+                    _candidateBoxes[i][j][k].SetNumberTexture(_candidateNumbers[i][j][k]);
+
+                if (i == _checkedBoxCoordinates.Y && j == _checkedBoxCoordinates.X)
+                    _candidateBoxes[i][j][k].SetGreyColor();
+                else
+                    _candidateBoxes[i][j][k].SetWhiteColor();
+            }
+        }
+    }
+}
+
+void Sudoku::ResetBoard() {
+    for (int i = 0; i < 9; i++) {
+        for (int j = 0; j < 9; j++) {
+            _boxes[i][j].SetNumberTexture(0);
+            _numbers[i][j] = 0;
+            for (int k = 1;k < 10;k++)
+                _isCandidateChecked[i][j][k] = false;
+        }
+    }
+
+//    for (int i = 0;i < 9;i++)
+//        for (int j = 0;j < 9;j++)
+//            for (int k = 0;k < 10;k++)
+//            {
+//                this->candMethod[i][j][k] = false;
+//                this->candMethodDel[i][j][k] = false;
+//            }
+}
 

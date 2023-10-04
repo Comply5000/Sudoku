@@ -16,6 +16,8 @@ public:
     virtual void SetSecondTexture();
     bool IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton);
     bool IsHover(sf::Vector2f mousePosition);
+    void SetWhiteColor();
+    void SetGreyColor();
 };
 
 
