@@ -2,6 +2,7 @@
 #include <array>
 #include "Sudoku.h"
 #include "Extensions/MethodsExtension.h"
+#include "Objects/Candidates/CandidateBoxTextures.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
@@ -22,7 +23,7 @@ Sudoku::Sudoku() {
     _upButton = new UpButton();
     _downButton = new DownButton();
     _logo = new Logo();
-    CandidateBox::InitCandidateBoxes();
+    CandidateBoxTextures::InitCandidateBoxTextures();
 }
 
 Sudoku::~Sudoku() {

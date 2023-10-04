@@ -13,12 +13,7 @@
 #include <vector>
 
 class CandidateBox : public BaseObject{
-    static sf::Color* _greyColor;
-    static sf::Texture Textures[10];
-    static sf::Texture CheckedTextures[10];
-
 public:
-    static void InitCandidateBoxes();
     static std::array<std::array<std::vector<CandidateBox>, 9>, 9> UpdateCandidates(std::array<std::array<int, 9>, 9> numbers,std::array<std::array<BoxObject, 9>, 9> boxes);
 };
 

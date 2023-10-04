@@ -33,12 +33,16 @@ add_executable(Sudoku main.cpp
         Objects/Candidates/CandidateBox.cpp
         Objects/Candidates/CandidateBox.h
         Extensions/MethodsExtension.cpp
-        Extensions/MethodsExtension.h)
+        Extensions/MethodsExtension.h
+        Objects/Boxes/BoxTextures.cpp
+        Objects/Boxes/BoxTextures.h
+        Objects/Candidates/CandidateBoxTextures.cpp
+        Objects/Candidates/CandidateBoxTextures.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR E:/c++/SFML/lib/cmake/SFML)
+set(SFML_DIR C:/SFML/lib/cmake/SFML)
 find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 
-include_directories(E:/c++/SFML/include/cmake/SFML)
+include_directories(C:SFML/include/cmake/SFML)
 target_link_libraries(Sudoku sfml-system sfml-window sfml-graphics sfml-audio)

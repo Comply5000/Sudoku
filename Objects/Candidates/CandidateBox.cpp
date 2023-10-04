@@ -3,21 +3,7 @@
 //
 
 #include "CandidateBox.h"
-
-sf::Color* CandidateBox::_greyColor = nullptr;
-sf::Texture CandidateBox::Textures[10];
-sf::Texture CandidateBox::CheckedTextures[10];
-
-void CandidateBox::InitCandidateBoxes()
-{
-    for (int i = 1; i < 10; i++)
-    {
-        std::string t = "../Objects/Candidates/Textures/Default/" + std::to_string(i) + ".png";
-        Textures[i].loadFromFile(t);
-        t = "../Objects/Candidates/Textures/Checked/" + std::to_string(i) + ".png";
-        CheckedTextures[i].loadFromFile(t);
-    }
-}
+#include "CandidateBoxTextures.h"
 
 std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCandidates(std::array<std::array<int, 9>, 9> numbers, std::array<std::array<BoxObject, 9>, 9> boxes)
 {
@@ -38,7 +24,7 @@ std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCand
                     CandidateBox candidateBox;
                     candidateBox.Shape.setPosition(boxes[i][j].Shape.getPosition().x + x, boxes[i][j].Shape.getPosition().y + y);
                     candidateBox.Shape.setSize(sf::Vector2f(17.5f, 17.5f));
-                    candidateBox.Shape.setTexture(&Textures[candidateNumbers[i][j][k]]);
+                    candidateBox.Shape.setTexture(&CandidateBoxTextures::Textures[candidateNumbers[i][j][k]]);
                     //candidateBox.Shape.setFillColor(sf::Color::Red);
                     candidateBoxes[i][j].push_back(candidateBox);
 

@@ -11,9 +11,6 @@
 
 class BoxObject : public BaseObject {
 public:
-    static sf::Color* _greyColor;
-    static sf::Texture Textures[10];
-public:
     static std::array<std::array<BoxObject, 9>, 9> InitBoxes();
     void SetWhiteColor();
     void SetGreyColor();

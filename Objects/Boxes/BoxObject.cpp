@@ -3,18 +3,11 @@
 //
 
 #include "BoxObject.h"
-
-sf::Color* BoxObject::_greyColor = nullptr;
-sf::Texture BoxObject::Textures[10];
+#include "BoxTextures.h"
 
 std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
 
-    _greyColor = new sf::Color(186, 181, 181);
-    for (int i = 0;i < 10;i++)
-    {
-        std::string t = "../Objects/Boxes/Textures/" + std::to_string(i) + ".png";
-        Textures[i].loadFromFile(t);
-    }
+    BoxTextures::InitBoxTextures();
 
     std::array<std::array<BoxObject, 9>, 9> boxes;
 
@@ -44,11 +37,11 @@ void BoxObject::SetWhiteColor() {
 }
 
 void BoxObject::SetGreyColor() {
-    Shape.setFillColor(*_greyColor);
+    Shape.setFillColor(*BoxTextures::GreyColor);
 }
 
 void BoxObject::SetNumberTexture(int number) {
-    Shape.setTexture(&Textures[number]);
+    Shape.setTexture(&BoxTextures::Textures[number]);
 }
 
 
