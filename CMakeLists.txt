@@ -39,12 +39,18 @@ add_executable(Sudoku main.cpp
         Objects/Candidates/CandidateBoxTextures.cpp
         Objects/Candidates/CandidateBoxTextures.h
         Shared/CustomColors.cpp
-        Shared/CustomColors.h)
+        Shared/CustomColors.h
+        Extensions/FileExtension.cpp
+        Extensions/FileExtension.h
+        Extensions/SolverExtension.cpp
+        Extensions/SolverExtension.h
+        Extensions/HelperFunctionsExtension.cpp
+        Extensions/HelperFunctionsExtension.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR E:/c++/SFML/lib/cmake/SFML)
+set(SFML_DIR C:/SFML/lib/cmake/SFML)
 find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 
-include_directories(E:/c++/SFML/include/cmake/SFML)
+include_directories(C:/SFML/include/cmake/SFML)
 target_link_libraries(Sudoku sfml-system sfml-window sfml-graphics sfml-audio)

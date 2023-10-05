@@ -57,6 +57,7 @@ class Sudoku {
     void ClickMenuButtons();
     void ClickBoxes();
     void ClickCandidatesAndUpdateColor();
+    void UpdateBoxes();
 
 public:
     Sudoku();

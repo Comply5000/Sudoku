@@ -3,6 +3,8 @@
 #include "Sudoku.h"
 #include "Extensions/MethodsExtension.h"
 #include "Objects/Candidates/CandidateBoxTextures.h"
+#include "Extensions/FileExtension.h"
+#include "Extensions/SolverExtension.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
@@ -165,6 +167,24 @@ void Sudoku::ClickMenuButtons()
     if (_resetButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
     {
         ResetBoard();
+    }
+
+    if(_saveButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
+    {
+        FileExtension::SaveBoard(_numbers);
+    }
+
+    if(_loadButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
+    {
+        _numbers = FileExtension::LoadBoard();
+        UpdateBoxes();
+    }
+
+    if(_solveButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+    {
+        _isAnyButtonPressed = true;
+        _numbers = SolverExtension::SolveBoard(_numbers);
+        UpdateBoxes();
     }
 }
 
@@ -423,5 +443,16 @@ void Sudoku::ResetBoard() {
 //                this->candMethod[i][j][k] = false;
 //                this->candMethodDel[i][j][k] = false;
 //            }
+}
+
+void Sudoku::UpdateBoxes()
+{
+    for(int i = 0;i < 9; i++)
+    {
+        for(int j = 0; j < 9; j++)
+        {
+            _boxes[i][j].SetNumberTexture(_numbers[i][j]);
+        }
+    }
 }
 

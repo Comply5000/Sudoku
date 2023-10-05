@@ -9,9 +9,6 @@
 #include <vector>
 
 class MethodsExtension {
-    static bool IsInSquare(std::array<std::array<int,9>,9> numbers, int y, int x, int k);
-    static bool IsContained(std::vector<int> vec, const int& elem);
-
 public:
     static std::array<std::array<std::vector<int>, 9>, 9> FindCandidates(std::array<std::array<int,9>,9> numbers);
 };
