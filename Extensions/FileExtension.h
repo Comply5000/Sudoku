@@ -7,9 +7,11 @@
 
 
 #include <array>
+#include <vector>
 #include <string>
 #include <fstream>
 #include <windows.h>
+#include <regex>
 
 class FileExtension {
     static bool SaveFileDialog(wchar_t szFileName[]);
@@ -17,7 +19,7 @@ class FileExtension {
 
 public:
     static void SaveBoard(std::array<std::array<int,9>,9> numbers);
-    static std::array<std::array<int,9>,9> LoadBoard();
+    static std::array<std::array<int,9>,9> LoadBoard(std::array<std::array<int, 9>, 9> oldNumbers);
 };
 
 

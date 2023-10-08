@@ -176,7 +176,7 @@ void Sudoku::ClickMenuButtons()
 
     if(_loadButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
     {
-        _numbers = FileExtension::LoadBoard();
+        _numbers = FileExtension::LoadBoard(_numbers);
         UpdateBoxes();
     }
 

@@ -2,7 +2,6 @@
 // Created by wojci on 05.10.2023.
 //
 
-#include <vector>
 #include "FileExtension.h"
 
 void FileExtension::SaveBoard(std::array<std::array<int, 9>, 9> numbers)
@@ -86,38 +85,39 @@ bool FileExtension::OpenFileDialog(wchar_t szFileName[]) {
     return GetOpenFileNameW(&ofn) == TRUE;
 }
 
-std::array<std::array<int, 9>, 9> FileExtension::LoadBoard()
+std::array<std::array<int, 9>, 9> FileExtension::LoadBoard(std::array<std::array<int, 9>, 9> oldNumbers)
 {
+    std::array<std::array<int, 9>, 9> numbers = {};
+
     wchar_t openedFileName[MAX_PATH];
     if (OpenFileDialog(openedFileName))
     {
         std::fstream file;
         file.open(openedFileName, std::ios::in);
 
+        std::regex isValid("^[0-9]{9}$");
         std::string line;
         std::vector<std::string> tab;
-        while (!file.eof())
+        for (int i = 0; i < 9; i++)
         {
             std::getline(file, line);
             tab.push_back(line);
         }
         file.close();
 
-        std::array<std::array<int, 9>, 9> numbers = {};
-        try
+        for (int i = 0;i < 9;i++)
         {
-            for (int i = 0;i < 9;i++)
-            {
-                for (int j = 0;j < tab[i].length();j++)
-                    numbers[i][j] = tab[i][j] - 48;
-            }
-            return numbers;
+            if(!std::regex_match(tab[i], isValid))
+                return oldNumbers;
+
+            for (int j = 0;j < tab[i].length();j++)
+                numbers[i][j] = tab[i][j] - 48;
         }
-        catch(std::exception& e)
-        {
-        }
+
         return numbers;
     }
+
+    return oldNumbers;
 }
 
 
