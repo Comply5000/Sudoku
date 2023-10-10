@@ -3,7 +3,7 @@
 //
 
 #include "BaseObject.h"
-#include "../../Shared/CustomColors.h"
+#include "../../Shared/Static/CustomColors.h"
 
 void BaseObject::SetDefaultTexture() {
     _shape.setTexture(&_texture);

@@ -4,7 +4,7 @@
 
 #include "BoxObject.h"
 #include "BoxTextures.h"
-#include "../../Shared/CustomColors.h"
+#include "../../Shared/Static/CustomColors.h"
 
 std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
 

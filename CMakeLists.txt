@@ -37,14 +37,16 @@ add_executable(Sudoku main.cpp
         Objects/Boxes/BoxTextures.h
         Objects/Candidates/CandidateBoxTextures.cpp
         Objects/Candidates/CandidateBoxTextures.h
-        Shared/CustomColors.cpp
-        Shared/CustomColors.h
+        Shared/Static/CustomColors.cpp
+        Shared/Static/CustomColors.h
         Extensions/FileExtension.cpp
         Extensions/FileExtension.h
         Extensions/SolverExtension.cpp
         Extensions/SolverExtension.h
         Extensions/HelperFunctionsExtension.cpp
-        Extensions/HelperFunctionsExtension.h)
+        Extensions/HelperFunctionsExtension.h
+        DTOs/MethodSolutionDto.h
+        Shared/Enums/BoardStructureType.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)
