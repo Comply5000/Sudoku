@@ -60,18 +60,18 @@ void Sudoku::Update() {
 
 void Sudoku::Render() {
     _window->clear();
-    _window->draw(_logo->Shape);
-    _window->draw(_board->Shape);
-    _window->draw(_resetButton->Shape);
-    _window->draw(_solveButton->Shape);
-    _window->draw(_loadButton->Shape);
-    _window->draw(_saveButton->Shape);
+    _window->draw(_logo->GetShape());
+    _window->draw(_board->GetShape());
+    _window->draw(_resetButton->GetShape());
+    _window->draw(_solveButton->GetShape());
+    _window->draw(_loadButton->GetShape());
+    _window->draw(_saveButton->GetShape());
 
     for(int i = 0;i < 9;i++)
     {
         for(int j = 0;j < 9;j++)
         {
-            _window->draw(_boxes[i][j].Shape);
+            _window->draw(_boxes[i][j].GetShape());
         }
     }
 
@@ -83,15 +83,15 @@ void Sudoku::Render() {
             {
                 for (int k = 0;k < _candidateBoxes[i][j].size();k++)
                 {
-                    _window->draw(_candidateBoxes[i][j][k].Shape);
+                    _window->draw(_candidateBoxes[i][j][k].GetShape());
                 }
             }
         }
     }
 
-    _window->draw(_showCandidatesCheckBox->Shape);
-    _window->draw(_upButton->Shape);
-    _window->draw(_downButton->Shape);
+    _window->draw(_showCandidatesCheckBox->GetShape());
+    _window->draw(_upButton->GetShape());
+    _window->draw(_downButton->GetShape());
     _window->display();
 }
 

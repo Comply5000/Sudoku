@@ -5,12 +5,12 @@
 #include "LoadButton.h"
 
 void LoadButton::Create() {
-    Shape.setPosition(750.f, 500.f);
-    Shape.setSize(sf::Vector2f(200.f, 100.f));
-    Texture.loadFromFile("../Objects/LoadButton/Textures/load.png");
-    Shape.setTexture(&Texture);
+    _shape.setPosition(750.f, 500.f);
+    _shape.setSize(sf::Vector2f(200.f, 100.f));
+    _texture.loadFromFile("../Objects/LoadButton/Textures/load.png");
+    _shape.setTexture(&_texture);
 
-    SecondTexture.loadFromFile("../Objects/LoadButton/Textures/load-hover.png");
+    _secondTexture.loadFromFile("../Objects/LoadButton/Textures/load-hover.png");
 }
 
 LoadButton::LoadButton() {

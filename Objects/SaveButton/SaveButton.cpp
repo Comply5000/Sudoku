@@ -5,12 +5,12 @@
 #include "SaveButton.h"
 
 void SaveButton::Create() {
-    Shape.setPosition(750.f, 400.f);
-    Shape.setSize(sf::Vector2f(200.f, 100.f));
-    Texture.loadFromFile("../Objects/SaveButton/Textures/save.png");
-    Shape.setTexture(&Texture);
+    _shape.setPosition(750.f, 400.f);
+    _shape.setSize(sf::Vector2f(200.f, 100.f));
+    _texture.loadFromFile("../Objects/SaveButton/Textures/save.png");
+    _shape.setTexture(&_texture);
 
-    SecondTexture.loadFromFile("../Objects/SaveButton/Textures/save-hover.png");
+    _secondTexture.loadFromFile("../Objects/SaveButton/Textures/save-hover.png");
 }
 
 SaveButton::SaveButton() {

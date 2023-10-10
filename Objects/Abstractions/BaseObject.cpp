@@ -5,31 +5,30 @@
 #include "BaseObject.h"
 #include "../../Shared/CustomColors.h"
 
-
-void BaseObject::Create() {
-
-}
-
 void BaseObject::SetDefaultTexture() {
-    Shape.setTexture(&Texture);
+    _shape.setTexture(&_texture);
 }
 
 void BaseObject::SetSecondTexture() {
-    Shape.setTexture(&SecondTexture);
+    _shape.setTexture(&_secondTexture);
 }
 
 bool BaseObject::IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton) {
-    return Shape.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(mouseButton);
+    return _shape.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(mouseButton);
 }
 
 bool BaseObject::IsHover(sf::Vector2f mousePosition) {
-    return Shape.getGlobalBounds().contains(mousePosition);
+    return _shape.getGlobalBounds().contains(mousePosition);
 }
 
 void BaseObject::SetWhiteColor() {
-    Shape.setFillColor(sf::Color::White);
+    _shape.setFillColor(sf::Color::White);
 }
 
 void BaseObject::SetGreyColor() {
-    Shape.setFillColor(*CustomColors::GreyColor);
+    _shape.setFillColor(*CustomColors::GreyColor);
+}
+
+sf::RectangleShape BaseObject::GetShape() {
+    return _shape;
 }

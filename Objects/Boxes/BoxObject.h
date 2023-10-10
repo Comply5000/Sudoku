@@ -11,6 +11,7 @@
 
 class BoxObject : public BaseObject {
 public:
+    void Create() override;
     static std::array<std::array<BoxObject, 9>, 9> InitBoxes();
     void SetNumberTexture(int number);
 };

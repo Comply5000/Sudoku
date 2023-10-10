@@ -5,12 +5,12 @@
 #include "ResetButton.h"
 
 void ResetButton::Create() {
-    Shape.setPosition(750.f, 300.f);
-    Shape.setSize(sf::Vector2f(200.f, 100.f));
-    Texture.loadFromFile("../Objects/ResetButton/Textures/reset.png");
-    Shape.setTexture(&Texture);
+    _shape.setPosition(750.f, 300.f);
+    _shape.setSize(sf::Vector2f(200.f, 100.f));
+    _texture.loadFromFile("../Objects/ResetButton/Textures/reset.png");
+    _shape.setTexture(&_texture);
 
-    SecondTexture.loadFromFile("../Objects/ResetButton/Textures/reset-hover.png");
+    _secondTexture.loadFromFile("../Objects/ResetButton/Textures/reset-hover.png");
 }
 
 ResetButton::ResetButton() {

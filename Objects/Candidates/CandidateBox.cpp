@@ -24,9 +24,9 @@ std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCand
                 for (int k = 0;k < candidateNumbers[i][j].size();k++)
                 {
                     CandidateBox candidateBox;
-                    candidateBox.Shape.setPosition(boxes[i][j].Shape.getPosition().x + x, boxes[i][j].Shape.getPosition().y + y);
-                    candidateBox.Shape.setSize(sf::Vector2f(17.5f, 17.5f));
-                    candidateBox.Shape.setTexture(&CandidateBoxTextures::Textures[candidateNumbers[i][j][k]]);
+                    candidateBox._shape.setPosition(boxes[i][j].GetShape().getPosition().x + x, boxes[i][j].GetShape().getPosition().y + y);
+                    candidateBox._shape.setSize(sf::Vector2f(17.5f, 17.5f));
+                    candidateBox._shape.setTexture(&CandidateBoxTextures::Textures[candidateNumbers[i][j][k]]);
                     //candidateBox.Shape.setFillColor(sf::Color::Red);
                     candidateBoxes[i][j].push_back(candidateBox);
 
@@ -48,11 +48,15 @@ std::array<std::array<std::vector<CandidateBox>, 9>, 9> CandidateBox::UpdateCand
 
 void CandidateBox::SetNumberTexture(int number)
 {
-    Shape.setTexture(&CandidateBoxTextures::Textures[number]);
+    _shape.setTexture(&CandidateBoxTextures::Textures[number]);
 }
 
 void CandidateBox::SetCheckedNumberTexture(int number)
 {
-    Shape.setTexture(&CandidateBoxTextures::CheckedTextures[number]);
+    _shape.setTexture(&CandidateBoxTextures::CheckedTextures[number]);
+}
+
+void CandidateBox::Create() {
+
 }
 

@@ -6,12 +6,9 @@
 #define SUDOKU_COORDINATES_H
 
 
-class Coordinates {
-public:
+struct Coordinates {
     int X = -1;
     int Y = -1;
-public:
-    void Set(int x, int y);
 };
 
 

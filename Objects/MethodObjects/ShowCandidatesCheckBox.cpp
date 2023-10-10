@@ -5,11 +5,11 @@
 #include "ShowCandidatesCheckBox.h"
 
 void ShowCandidatesCheckBox::Create() {
-    Shape.setPosition(750.f, 625.f);
-    Shape.setSize(sf::Vector2f(50.f, 50.f));
-    Texture.loadFromFile("../Objects/MethodObjects/Textures/check2.png");
-    SecondTexture.loadFromFile("../Objects/MethodObjects/Textures/check.png");
-    Shape.setTexture(&Texture);
+    _shape.setPosition(750.f, 625.f);
+    _shape.setSize(sf::Vector2f(50.f, 50.f));
+    _texture.loadFromFile("../Objects/MethodObjects/Textures/check2.png");
+    _secondTexture.loadFromFile("../Objects/MethodObjects/Textures/check.png");
+    _shape.setTexture(&_texture);
 }
 
 ShowCandidatesCheckBox::ShowCandidatesCheckBox() {

@@ -20,7 +20,6 @@ add_executable(Sudoku main.cpp
         Objects/SaveButton/SaveButton.h
         Objects/Boxes/BoxObject.cpp
         Objects/Boxes/BoxObject.h
-        DTOs/Coordinates.cpp
         DTOs/Coordinates.h
         Objects/MethodObjects/ShowCandidatesCheckBox.cpp
         Objects/MethodObjects/ShowCandidatesCheckBox.h
@@ -49,8 +48,8 @@ add_executable(Sudoku main.cpp
 
 
 set(SFML_STATIC_LIBRARIES TRUE)
-set(SFML_DIR E:/c++/SFML/lib/cmake/SFML)
+set(SFML_DIR C:/SFML/lib/cmake/SFML)
 find_package(SFML COMPONENTS system window graphics audio network REQUIRED)
 
-include_directories(E:/c++/SFML/include/cmake/SFML)
+include_directories(C:/SFML/include/cmake/SFML)
 target_link_libraries(Sudoku sfml-system sfml-window sfml-graphics sfml-audio)

@@ -5,12 +5,12 @@
 #include "SolveButton.h"
 
 void SolveButton::Create() {
-    Shape.setPosition(750.f, 200.f);
-    Shape.setSize(sf::Vector2f(200.f, 100.f));
-    Texture.loadFromFile("../Objects/SolveButton/Textures/solve.png");
-    Shape.setTexture(&Texture);
+    _shape.setPosition(750.f, 200.f);
+    _shape.setSize(sf::Vector2f(200.f, 100.f));
+    _texture.loadFromFile("../Objects/SolveButton/Textures/solve.png");
+    _shape.setTexture(&_texture);
 
-    SecondTexture.loadFromFile("../Objects/SolveButton/Textures/solve-hover.png");
+    _secondTexture.loadFromFile("../Objects/SolveButton/Textures/solve-hover.png");
 }
 
 SolveButton::SolveButton() {

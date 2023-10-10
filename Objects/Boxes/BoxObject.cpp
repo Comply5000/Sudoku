@@ -18,9 +18,9 @@ std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
         int x = 14;
         for (int j = 0;j < 9;j++)
         {
-            boxes[i][j].Shape.setFillColor(sf::Color::White);
-            boxes[i][j].Shape.setSize(sf::Vector2f(70.f, 70.f));
-            boxes[i][j].Shape.setPosition(x, y);
+            boxes[i][j]._shape.setFillColor(sf::Color::White);
+            boxes[i][j]._shape.setSize(sf::Vector2f(70.f, 70.f));
+            boxes[i][j]._shape.setPosition(x, y);
             x += 74;
             if (j == 2 || j == 5)
                 x += 5;
@@ -34,7 +34,11 @@ std::array<std::array<BoxObject, 9>, 9> BoxObject::InitBoxes() {
 }
 
 void BoxObject::SetNumberTexture(int number) {
-    Shape.setTexture(&BoxTextures::Textures[number]);
+    _shape.setTexture(&BoxTextures::Textures[number]);
+}
+
+void BoxObject::Create() {
+
 }
 
 

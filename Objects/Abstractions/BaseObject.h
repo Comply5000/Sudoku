@@ -5,19 +5,21 @@
 #include<SFML/System.hpp>
 
 class BaseObject {
-public:
-    sf::RectangleShape Shape;
-    sf::Texture Texture;
-    sf::Texture SecondTexture;
+protected:
+    sf::RectangleShape _shape;
+    sf::Texture _texture;
+    sf::Texture _secondTexture;
 
 public:
-    virtual void Create();
-    virtual void SetDefaultTexture();
-    virtual void SetSecondTexture();
+    virtual void Create() = 0;
+    void SetDefaultTexture();
+    void SetSecondTexture();
     bool IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton);
     bool IsHover(sf::Vector2f mousePosition);
     void SetWhiteColor();
     void SetGreyColor();
+    sf::RectangleShape GetShape();
+
 };
 
 
