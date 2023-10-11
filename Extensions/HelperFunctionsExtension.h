@@ -12,7 +12,7 @@
 class HelperFunctionsExtension {
 public:
     static bool IsInSquare(std::array<std::array<int,9>,9> numbers, int y, int x, int k);
-    static bool IsContained(std::vector<int> vec, const int& elem);
+    static bool IsContained(std::vector<int> list, const int& elem);
 };
 
 

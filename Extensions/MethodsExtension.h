@@ -12,6 +12,9 @@
 class MethodsExtension {
 public:
     static std::array<std::array<std::vector<int>, 9>, 9> FindCandidates(std::array<std::array<int,9>,9> numbers);
+    static std::vector<MethodSolutionDto> NakedSingle(std::array<std::array<int,9>,9> numbers);
+    static std::vector<MethodSolutionDto> HiddenSingle(std::array<std::array<int,9>,9> numbers);
+    static std::vector<MethodSolutionDto> LockedCandidate(std::array<std::array<int,9>,9> numbers);
 };
 
 

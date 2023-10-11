@@ -27,9 +27,9 @@ bool HelperFunctionsExtension::IsInSquare(std::array<std::array<int,9>,9> number
     return false;
 }
 
-bool HelperFunctionsExtension::IsContained(std::vector<int> vec, const int &elem) {
+bool HelperFunctionsExtension::IsContained(std::vector<int> list, const int &elem) {
     bool result = false;
-    for (auto& x : vec)
+    for (auto& x : list)
     {
         if (x == elem)
         {
