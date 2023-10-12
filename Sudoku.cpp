@@ -25,7 +25,10 @@ Sudoku::Sudoku() {
     _upButton = new UpButton();
     _downButton = new DownButton();
     _logo = new Logo();
+    _listMethodButton = new ListMethodButton();
     CandidateBoxTextures::InitCandidateBoxTextures();
+    _methodButtons = MethodButton::InitMethodButtons();
+    _methodTextList = MethodText::InitMethodText();
 }
 
 Sudoku::~Sudoku() {
@@ -39,6 +42,7 @@ Sudoku::~Sudoku() {
     delete _downButton;
     delete _upButton;
     delete _logo;
+    delete _listMethodButton;
 }
 
 bool Sudoku::IsRunning() const {
@@ -56,6 +60,9 @@ void Sudoku::Update() {
     ClickMenuButtons();
     ClickBoxes();
     ClickCandidatesAndUpdateColor();
+    ClickMethodButtons();
+    UpdateMethod();
+    UpdateStartPosition();
 }
 
 void Sudoku::Render() {
@@ -90,8 +97,18 @@ void Sudoku::Render() {
     }
 
     _window->draw(_showCandidatesCheckBox->GetShape());
+    _window->draw(_showCandidatesCheckBox->GetText());
     _window->draw(_upButton->GetShape());
     _window->draw(_downButton->GetShape());
+    _window->draw(_listMethodButton->GetShape());
+
+    if(_isMethodListOpen)
+        for (auto  & methodButton : _methodButtons)
+            _window->draw(methodButton.GetShape());
+
+    for(auto & methodText : _methodTextList)
+        _window->draw(methodText.GetText());
+
     _window->display();
 }
 
@@ -208,7 +225,7 @@ void Sudoku::ClickBoxes()
                     }
 
                 //jesli nie zosta� klikni�ty kandydat lub pokazywanie kandydat�w jest wy��czone
-                if (!candidateClicked || !_isCandidatesShow)
+                if ((!candidateClicked || !_isCandidatesShow) && !_isMethodListOpen)
                 {
                     _isAnyButtonPressed = true;
 
@@ -402,7 +419,7 @@ void Sudoku::ClickCandidatesAndUpdateColor() {
         {
             for (int k = 0; k < _candidateBoxes[i][j].size(); k++)
             {
-                if (_candidateBoxes[i][j][k].IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+                if (_candidateBoxes[i][j][k].IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed && !_isMethodListOpen)
                 {
                     _isAnyButtonPressed = true;
 
@@ -455,4 +472,141 @@ void Sudoku::UpdateBoxes()
         }
     }
 }
+
+void Sudoku::ClickMethodButtons()
+{
+    if (!_isMethodListOpen)
+    {
+        if (_listMethodButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+        {
+            _isAnyButtonPressed = true;
+            _isMethodListOpen = true;
+            _listMethodButton->SetDefaultTexture();
+        }
+    }
+    else
+    {
+        if (_listMethodButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+        {
+            _isAnyButtonPressed = true;
+            _isMethodListOpen = false;
+            _methodType = MethodType::NoData;
+            _listMethodButton->SetDefaultTexture();
+
+
+            for (int i = 0;i < 3;i++)
+                _methodNumber[i] = i;
+
+            _selectedMethodNumber = -1;
+            _startPoint = 0;
+
+//            for (int i = 0;i < 9;i++)
+//                for (int j = 0;j < 9;j++)
+//                    for (int k = 0;k < 10;k++)
+//                    {
+//                        this->candMethod[i][j][k] = false;
+//                        this->candMethodDel[i][j][k] = false;
+//                    }
+        }
+
+        for (int i = 0;i < _methodButtons.size(); i++)
+        {
+            if (_methodButtons[i].IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+            {
+                _isAnyButtonPressed = true;
+                _isMethodListOpen = false;
+                _methodType = static_cast<MethodType>(i+1);
+                _listMethodButton->SetMethodTexture(i);
+
+
+                for (int i = 0;i < 3;i++)
+                    _methodNumber[i] = i;
+
+                _selectedMethodNumber = -1;
+                _startPoint = 0;
+
+//                for (int i = 0;i < 9;i++)
+//                    for (int j = 0;j < 9;j++)
+//                        for (int k = 0;k < 10;k++)
+//                        {
+//                            this->candMethod[i][j][k] = false;
+//                            this->candMethodDel[i][j][k] = false;
+//                        }
+            }
+        }
+    }
+}
+
+void Sudoku::UpdateMethod()
+{
+    _methodStringList.clear();
+    _methodStringList.shrink_to_fit();
+
+    if (_methodType == MethodType::NoData)
+    {
+        UpdateMethodTextList();
+    }
+    if (_methodType == MethodType::NakedSingle)
+    {
+        auto methodSolution = MethodsExtension::NakedSingle(_numbers);
+
+        for (int m = 0;m < methodSolution.size();m++)
+        {
+            for (int i = 0;i < 9;i++)
+            {
+                for (int j = 0;j < 9;j++)
+                {
+                    if (!methodSolution[m].Candidates[i][j].empty())
+                    {
+                        std::string text = std::to_string(m + 1) + ". The cell R" + std::to_string(i+1) + "C" + std::to_string(j+1) + " can contain only the value " + std::to_string(methodSolution[m].Candidates[i][j][0]);
+                        _methodStringList.push_back(text);
+                    }
+                }
+            }
+        }
+        UpdateMethodTextList();
+    }
+}
+
+void Sudoku::UpdateMethodTextList()
+{
+    int a = 0;
+    for (int i = _startPoint; i < _startPoint + 3; i++)
+    {
+        if (_methodStringList.size() > i)
+            _methodTextList[a].SetString(_methodStringList[i]);
+        else
+            _methodTextList[a].SetString("");
+        a++;
+    }
+}
+
+void Sudoku::UpdateStartPosition()
+{
+    if (_methodStringList.size() > 3)
+    {
+        if (_downButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+        {
+            _isAnyButtonPressed = true;
+            if (_startPoint < _methodStringList.size() - 3)
+            {
+                _startPoint++;
+                for (int i = 0;i < 3;i++)
+                    _methodNumber[i]++;
+            }
+        }
+        else if (_upButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
+        {
+            _isAnyButtonPressed = true;
+            if (_startPoint > 0)
+            {
+                _startPoint--;
+                for (int i = 0;i < 3;i++)
+                    this->_methodNumber[i]--;
+            }
+        }
+    }
+}
+
+
 

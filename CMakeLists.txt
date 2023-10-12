@@ -21,8 +21,8 @@ add_executable(Sudoku main.cpp
         Objects/Boxes/BoxObject.cpp
         Objects/Boxes/BoxObject.h
         DTOs/Coordinates.h
-        Objects/MethodObjects/ShowCandidatesCheckBox.cpp
-        Objects/MethodObjects/ShowCandidatesCheckBox.h
+        Objects/ShowCandidatesCheckBox/ShowCandidatesCheckBox.cpp
+        Objects/ShowCandidatesCheckBox/ShowCandidatesCheckBox.h
         Objects/MethodObjects/UpButton.cpp
         Objects/MethodObjects/UpButton.h
         Objects/MethodObjects/DownButton.cpp
@@ -46,7 +46,16 @@ add_executable(Sudoku main.cpp
         Extensions/HelperFunctionsExtension.cpp
         Extensions/HelperFunctionsExtension.h
         DTOs/MethodSolutionDto.h
-        Shared/Enums/BoardStructureType.h)
+        Shared/Enums/BoardStructureType.h
+        Objects/MethodObjects/ListMethodButton.cpp
+        Objects/MethodObjects/ListMethodButton.h
+        Objects/MethodObjects/MethodButton.cpp
+        Objects/MethodObjects/MethodButton.h
+        Objects/MethodObjects/MethodButtonTextures.cpp
+        Objects/MethodObjects/MethodButtonTextures.h
+        Shared/Enums/MethodType.h
+        Objects/MethodObjects/MethodText.cpp
+        Objects/MethodObjects/MethodText.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)

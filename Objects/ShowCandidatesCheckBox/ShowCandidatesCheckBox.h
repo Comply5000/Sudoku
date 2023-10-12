@@ -10,9 +10,12 @@
 
 class ShowCandidatesCheckBox : public BaseObject {
     void Create() override;
+    sf::Text _text;
+    sf::Font _font;
 
 public:
     ShowCandidatesCheckBox();
+    sf::Text GetText();
 };
 
 

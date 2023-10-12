@@ -10,11 +10,15 @@
 #include "Objects/SaveButton/SaveButton.h"
 #include "Objects/Boxes/BoxObject.h"
 #include "DTOs/Coordinates.h"
-#include "Objects/MethodObjects/ShowCandidatesCheckBox.h"
 #include "Objects/MethodObjects/UpButton.h"
 #include "Objects/MethodObjects/DownButton.h"
 #include "Objects/Logo/Logo.h"
 #include "Objects/Candidates/CandidateBox.h"
+#include "Objects/MethodObjects/ListMethodButton.h"
+#include "Objects/MethodObjects/MethodButton.h"
+#include "Objects/ShowCandidatesCheckBox/ShowCandidatesCheckBox.h"
+#include "Shared/Enums/MethodType.h"
+#include "Objects/MethodObjects/MethodText.h"
 #include <array>
 
 class Sudoku {
@@ -40,6 +44,18 @@ class Sudoku {
     DownButton* _downButton;
     Logo* _logo;
 
+    //method logic
+    ListMethodButton* _listMethodButton;
+    std::array<MethodButton, 7> _methodButtons;
+    bool _isMethodListOpen = false;
+    std::vector<std::string> _methodStringList;
+    std::array<MethodText, 3> _methodTextList;
+    std::array<int, 3> _methodNumber;
+    MethodType _methodType;
+    int _startPoint = 0;
+    int _selectedMethodNumber = -1;
+
+
     //candidates logic
     std::array<std::array<std::vector<CandidateBox>, 9>, 9> _candidateBoxes;
     bool _isCandidateChecked[9][9][10] = {};
@@ -58,6 +74,10 @@ class Sudoku {
     void ClickBoxes();
     void ClickCandidatesAndUpdateColor();
     void UpdateBoxes();
+    void ClickMethodButtons();
+    void UpdateMethod();
+    void UpdateMethodTextList();
+    void UpdateStartPosition();
 
 public:
     Sudoku();
