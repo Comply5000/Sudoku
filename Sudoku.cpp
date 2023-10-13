@@ -5,6 +5,7 @@
 #include "Objects/Candidates/CandidateBoxTextures.h"
 #include "Extensions/FileExtension.h"
 #include "Extensions/SolverExtension.h"
+#include "Extensions/HelperFunctionsExtension.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
@@ -63,6 +64,7 @@ void Sudoku::Update() {
     ClickMethodButtons();
     UpdateMethod();
     UpdateStartPosition();
+    ClickMethodText();
 }
 
 void Sudoku::Render() {
@@ -362,51 +364,61 @@ void Sudoku::ClickBoxes()
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(0);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 0;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(1);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 1;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(2);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 2;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(3);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 3;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(4);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 4;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(5);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 5;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(6);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 6;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(7);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 7;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(8);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 8;
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9))
         {
             _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(9);
+            ClearIsCandidateSelectedForMethod();
             _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 9;
         }
     }
@@ -453,13 +465,7 @@ void Sudoku::ResetBoard() {
         }
     }
 
-//    for (int i = 0;i < 9;i++)
-//        for (int j = 0;j < 9;j++)
-//            for (int k = 0;k < 10;k++)
-//            {
-//                this->candMethod[i][j][k] = false;
-//                this->candMethodDel[i][j][k] = false;
-//            }
+    ClearIsCandidateSelectedForMethod();
 }
 
 void Sudoku::UpdateBoxes()
@@ -500,13 +506,7 @@ void Sudoku::ClickMethodButtons()
             _selectedMethodNumber = -1;
             _startPoint = 0;
 
-//            for (int i = 0;i < 9;i++)
-//                for (int j = 0;j < 9;j++)
-//                    for (int k = 0;k < 10;k++)
-//                    {
-//                        this->candMethod[i][j][k] = false;
-//                        this->candMethodDel[i][j][k] = false;
-//                    }
+            ClearIsCandidateSelectedForMethod();
         }
 
         for (int i = 0;i < _methodButtons.size(); i++)
@@ -525,13 +525,7 @@ void Sudoku::ClickMethodButtons()
                 _selectedMethodNumber = -1;
                 _startPoint = 0;
 
-//                for (int i = 0;i < 9;i++)
-//                    for (int j = 0;j < 9;j++)
-//                        for (int k = 0;k < 10;k++)
-//                        {
-//                            this->candMethod[i][j][k] = false;
-//                            this->candMethodDel[i][j][k] = false;
-//                        }
+                ClearIsCandidateSelectedForMethod();
             }
         }
     }
@@ -548,24 +542,43 @@ void Sudoku::UpdateMethod()
     }
     if (_methodType == MethodType::NakedSingle)
     {
-        auto methodSolution = MethodsExtension::NakedSingle(_numbers);
+        _methodSolutions = MethodsExtension::NakedSingle(_numbers);
 
-        for (int m = 0;m < methodSolution.size();m++)
+        for (int m = 0;m < _methodSolutions.size();m++)
         {
             for (int i = 0;i < 9;i++)
             {
                 for (int j = 0;j < 9;j++)
                 {
-                    if (!methodSolution[m].Candidates[i][j].empty())
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
                     {
-                        std::string text = std::to_string(m + 1) + ". The cell R" + std::to_string(i+1) + "C" + std::to_string(j+1) + " can contain only the value " + std::to_string(methodSolution[m].Candidates[i][j][0]);
+                        std::string text = std::to_string(m + 1) + ". The cell R" + std::to_string(i+1) + "C" + std::to_string(j+1) + " can contain only the value " + std::to_string(_methodSolutions[m].Candidates[i][j][0]);
                         _methodStringList.push_back(text);
                     }
                 }
             }
         }
-        UpdateMethodTextList();
     }
+    if(_methodType == MethodType::HiddenSingle)
+    {
+        _methodSolutions = MethodsExtension::HiddenSingle(_numbers);
+
+        for (int m = 0;m < _methodSolutions.size();m++)
+        {
+            for (int i = 0;i < 9;i++)
+            {
+                for (int j = 0;j < 9;j++)
+                {
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
+                    {
+                        std::string text = std::to_string(m + 1) + ". The cell R" + std::to_string(i + 1) + "C" + std::to_string(j + 1) + " can contain only the value " + std::to_string(_methodSolutions[m].Candidates[i][j][0]);
+                        _methodStringList.push_back(text);
+                    }
+                }
+            }
+        }
+    }
+    UpdateMethodTextList();
 }
 
 void Sudoku::UpdateMethodTextList()
@@ -607,6 +620,60 @@ void Sudoku::UpdateStartPosition()
         }
     }
 }
+
+void Sudoku::ClickMethodText()
+{
+    for (int l = 0;l < 3;l++)
+    {
+        if (_methodTextList[l].IsClicked(GetMousePosition(), sf::Mouse::Left))
+        {
+            ClearIsCandidateSelectedForMethod();
+
+            _selectedMethodNumber = _methodNumber[l];
+
+            for (int i = 0;i < 9;i++)
+                for (int j = 0;j < 9;j++)
+                    for (int k = 0;k < _candidateNumbers[i][j].size();k++)
+                    {
+                        if (HelperFunctionsExtension::IsContained(_methodSolutions[_selectedMethodNumber].Candidates[i][j], _candidateNumbers[i][j][k]))
+                            _isCandidateSelectedForMethod[i][j][k] = true;
+                        if (_methodType != MethodType::NakedSingle && _methodType != MethodType::HiddenSingle && HelperFunctionsExtension::IsContained(_methodSolutions[_selectedMethodNumber].CandidatesToDelete[i][j], _candidateNumbers[i][j][k]))
+                            _isCandidateSelectedForMethodToDelete[i][j][k] = true;
+                    }
+        }
+    }
+
+    for (int i = 0;i < 3;i++)
+    {
+        if (_methodNumber[i] == _selectedMethodNumber)
+            _methodTextList[i].SetGreenColor();
+        else
+            _methodTextList[i].SetWhiteColor();
+    }
+
+    for (int i = 0;i < 9;i++)
+        for (int j = 0;j < 9;j++)
+            for (int k = 0;k < 10;k++)
+            {
+                if (_isCandidateSelectedForMethod[i][j][k])
+                    _candidateBoxes[i][j][k].SetGreenColor();
+                if (_isCandidateSelectedForMethodToDelete[i][j][k])
+                    _candidateBoxes[i][j][k].SetRedColor();
+            }
+}
+
+void Sudoku::ClearIsCandidateSelectedForMethod()
+{
+    for (int i = 0;i < 9;i++)
+        for (int j = 0;j < 9;j++)
+            for (int k = 0;k < 10;k++)
+            {
+                _isCandidateSelectedForMethod[i][j][k] = false;
+                _isCandidateSelectedForMethodToDelete[i][j][k] = false;
+            }
+    _selectedMethodNumber = -1;
+}
+
 
 
 

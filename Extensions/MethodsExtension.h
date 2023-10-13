@@ -7,6 +7,7 @@
 
 #include <array>
 #include <vector>
+#include <algorithm>
 #include "../DTOs/MethodSolutionDto.h"
 
 class MethodsExtension {

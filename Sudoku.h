@@ -54,11 +54,14 @@ class Sudoku {
     MethodType _methodType;
     int _startPoint = 0;
     int _selectedMethodNumber = -1;
+    std::vector<MethodSolutionDto> _methodSolutions;
 
 
     //candidates logic
     std::array<std::array<std::vector<CandidateBox>, 9>, 9> _candidateBoxes;
     bool _isCandidateChecked[9][9][10] = {};
+    bool _isCandidateSelectedForMethod[9][9][10] = {};
+    bool _isCandidateSelectedForMethodToDelete[9][9][10] = {};
     std::array<std::array<std::vector<int>, 9>, 9> _candidateNumbers;
 
 
@@ -78,6 +81,8 @@ class Sudoku {
     void UpdateMethod();
     void UpdateMethodTextList();
     void UpdateStartPosition();
+    void ClickMethodText();
+    void ClearIsCandidateSelectedForMethod();
 
 public:
     Sudoku();

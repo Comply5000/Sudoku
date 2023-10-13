@@ -14,6 +14,14 @@ struct MethodSolutionDto {
     std::array<std::array<std::vector<int>,9>,9> Candidates;
     std::array<std::array<std::vector<int>,9>,9> CandidatesToDelete;
     BoardStructureType StructureType;
+
+    bool operator==(const MethodSolutionDto& other) const {
+        return Candidates == other.Candidates;
+    }
+
+    bool operator<(const MethodSolutionDto& other) const {
+        return Candidates < other.Candidates;
+    }
 };
 
 

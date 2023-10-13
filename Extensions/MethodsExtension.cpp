@@ -94,7 +94,7 @@ std::vector<MethodSolutionDto> MethodsExtension::HiddenSingle(std::array<std::ar
                         singleMethod[i][j].push_back(candidates[i][j][k]);
                         MethodSolutionDto solution;
                         solution.Candidates = singleMethod;
-                        solution.StructureType = BoardStructureType::Row;
+                        //solution.StructureType = BoardStructureType::Row;
                         methodSolutions.push_back(solution);
                     }
                 }
@@ -121,7 +121,7 @@ std::vector<MethodSolutionDto> MethodsExtension::HiddenSingle(std::array<std::ar
                         singleMethod[i][j].push_back(candidates[i][j][k]);
                         MethodSolutionDto solution;
                         solution.Candidates = singleMethod;
-                        solution.StructureType = BoardStructureType::Column;
+                        //solution.StructureType = BoardStructureType::Column;
                         methodSolutions.push_back(solution);
                     }
                 }
@@ -152,7 +152,7 @@ std::vector<MethodSolutionDto> MethodsExtension::HiddenSingle(std::array<std::ar
                                 singleMethod[i][j].push_back(candidates[i][j][k]);
                                 MethodSolutionDto solution;
                                 solution.Candidates = singleMethod;
-                                solution.StructureType = BoardStructureType::Square;
+                                //solution.StructureType = BoardStructureType::Square;
                                 methodSolutions.push_back(solution);
                             }
                         }
@@ -161,6 +161,11 @@ std::vector<MethodSolutionDto> MethodsExtension::HiddenSingle(std::array<std::ar
             }
         }
     }
+
+    std::sort(methodSolutions.begin(), methodSolutions.end());
+    auto uniqueMethodSolutions = std::unique(methodSolutions.begin(), methodSolutions.end());
+
+    methodSolutions.erase(uniqueMethodSolutions, methodSolutions.end());
 
     return methodSolutions;
 }

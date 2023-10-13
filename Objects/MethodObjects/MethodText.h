@@ -8,6 +8,7 @@
 
 #include <array>
 #include <SFML/Graphics/Text.hpp>
+#include <SFML/Window/Mouse.hpp>
 
 class MethodText {
     sf::Text _text;
@@ -17,6 +18,9 @@ public:
     static std::array<MethodText, 3> InitMethodText();
     sf::Text GetText();
     void SetString(const std::string& value);
+    bool IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton);
+    void SetWhiteColor();
+    void SetGreenColor();
 };
 
 

@@ -18,6 +18,8 @@ public:
     bool IsHover(sf::Vector2f mousePosition);
     void SetWhiteColor();
     void SetGreyColor();
+    void SetGreenColor();
+    void SetRedColor();
     sf::RectangleShape GetShape();
 
 };

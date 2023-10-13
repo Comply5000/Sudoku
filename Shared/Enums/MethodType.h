@@ -8,6 +8,7 @@
 enum MethodType{
     NoData = 0,
     NakedSingle = 1,
+    HiddenSingle = 2,
 };
 
 #endif //SUDOKU_METHODTYPE_H

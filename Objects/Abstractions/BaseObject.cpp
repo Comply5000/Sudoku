@@ -32,3 +32,11 @@ void BaseObject::SetGreyColor() {
 sf::RectangleShape BaseObject::GetShape() {
     return _shape;
 }
+
+void BaseObject::SetGreenColor() {
+    _shape.setFillColor(sf::Color::Green);
+}
+
+void BaseObject::SetRedColor() {
+    _shape.setFillColor(sf::Color::Red);
+}

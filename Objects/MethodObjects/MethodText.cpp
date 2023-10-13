@@ -29,3 +29,15 @@ sf::Text MethodText::GetText() {
 void MethodText::SetString(const std::string& value) {
     _text.setString(value);
 }
+
+bool MethodText::IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton) {
+    return _text.getGlobalBounds().contains(mousePosition) && sf::Mouse::isButtonPressed(mouseButton);
+}
+
+void MethodText::SetWhiteColor() {
+    _text.setFillColor(sf::Color::White);
+}
+
+void MethodText::SetGreenColor() {
+    _text.setFillColor(sf::Color::Green);
+}
