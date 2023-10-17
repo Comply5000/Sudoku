@@ -39,3 +39,4 @@ bool HelperFunctionsExtension::IsContained(std::vector<int> list, const int &ele
     }
     return result;
 }
+

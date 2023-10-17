@@ -9,6 +9,9 @@ enum MethodType{
     NoData = 0,
     NakedSingle = 1,
     HiddenSingle = 2,
+    LockedCandidate = 3,
+    NakedPair = 4,
+    NakedTriple = 5,
 };
 
 #endif //SUDOKU_METHODTYPE_H

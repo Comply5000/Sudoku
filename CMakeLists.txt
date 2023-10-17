@@ -46,7 +46,7 @@ add_executable(Sudoku main.cpp
         Extensions/HelperFunctionsExtension.cpp
         Extensions/HelperFunctionsExtension.h
         DTOs/MethodSolutionDto.h
-        Shared/Enums/BoardStructureType.h
+        Shared/Enums/StructureType.h
         Objects/MethodObjects/ListMethodButton.cpp
         Objects/MethodObjects/ListMethodButton.h
         Objects/MethodObjects/MethodButton.cpp
@@ -55,7 +55,9 @@ add_executable(Sudoku main.cpp
         Objects/MethodObjects/MethodButtonTextures.h
         Shared/Enums/MethodType.h
         Objects/MethodObjects/MethodText.cpp
-        Objects/MethodObjects/MethodText.h)
+        Objects/MethodObjects/MethodText.h
+        Shared/Static/EnumsToStrings.cpp
+        Shared/Static/EnumsToStrings.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)

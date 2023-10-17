@@ -8,12 +8,12 @@
 
 #include <array>
 #include <vector>
-#include "../Shared/Enums/BoardStructureType.h"
+#include "../Shared/Enums/StructureType.h"
 
 struct MethodSolutionDto {
     std::array<std::array<std::vector<int>,9>,9> Candidates;
     std::array<std::array<std::vector<int>,9>,9> CandidatesToDelete;
-    BoardStructureType StructureType;
+    StructureType StructureType;
 
     bool operator==(const MethodSolutionDto& other) const {
         return Candidates == other.Candidates;

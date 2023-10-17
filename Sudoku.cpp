@@ -6,6 +6,7 @@
 #include "Extensions/FileExtension.h"
 #include "Extensions/SolverExtension.h"
 #include "Extensions/HelperFunctionsExtension.h"
+#include "Shared/Static/EnumsToStrings.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
@@ -195,6 +196,7 @@ void Sudoku::ClickMenuButtons()
 
     if(_loadButton->IsClicked(GetMousePosition(), sf::Mouse::Left))
     {
+        ClearIsCandidateSelectedForMethod();
         _numbers = FileExtension::LoadBoard(_numbers);
         UpdateBoxes();
     }
@@ -202,6 +204,7 @@ void Sudoku::ClickMenuButtons()
     if(_solveButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
     {
         _isAnyButtonPressed = true;
+        ClearIsCandidateSelectedForMethod();
         _numbers = SolverExtension::SolveBoard(_numbers);
         UpdateBoxes();
     }
@@ -576,6 +579,63 @@ void Sudoku::UpdateMethod()
                     }
                 }
             }
+        }
+    }
+    if(_methodType == MethodType::LockedCandidate)
+    {
+        _methodSolutions = MethodsExtension::LockedCandidate(_numbers);
+
+        for (int m = 0; m < _methodSolutions.size(); m++)
+        {
+            std::string text = std::to_string(m + 1) + ". Locket candidate in " +
+                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);
+            _methodStringList.push_back(text);
+        }
+    }
+    if(_methodType == MethodType::NakedPair)
+    {
+        _methodSolutions = MethodsExtension::NakedPair(_numbers);
+
+        for (int m = 0;m < _methodSolutions.size();m++)
+        {
+            std::vector<std::string> box;
+            for (int i = 0;i < 9;i++)
+            {
+                for (int j = 0;j < 9;j++)
+                {
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
+                    {
+                        std::string t = "R" + std::to_string(i + 1) + "C" + std::to_string(j + 1);
+                        box.push_back(t);
+                    }
+                }
+            }
+            std::string text = std::to_string(m + 1) + ". "+box[0]+" and "+box[1]+ " create pair in "+
+                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);
+            _methodStringList.push_back(text);
+        }
+    }
+    if(_methodType == MethodType::NakedTriple)
+    {
+        _methodSolutions = MethodsExtension::NakedTriple(_numbers);
+
+        for (int m = 0;m < _methodSolutions.size();m++)
+        {
+            std::vector<std::string> box;
+            for (int i = 0;i < 9;i++)
+            {
+                for (int j = 0;j < 9;j++)
+                {
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
+                    {
+                        std::string t = "R" + std::to_string(i + 1) + "C" + std::to_string(j + 1);
+                        box.push_back(t);
+                    }
+                }
+            }
+            std::string text = std::to_string(m + 1) + ". " + box[0] + ", " + box[1] + " and " + box[2] + " create triple in " +
+                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);;
+            _methodStringList.push_back(text);
         }
     }
     UpdateMethodTextList();

@@ -225,7 +225,7 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                         if(l == 81)
                             existMethod = true;
                         for (auto & methodSolution : methodSolutions)
-                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == BoardStructureType::Row)
+                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Row)
                                 existMethod = true;
 
                         if (!existMethod)
@@ -233,7 +233,7 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                             MethodSolutionDto solution;
                             solution.Candidates = singleMethod;
                             solution.CandidatesToDelete = singleMethodDel;
-                            solution.StructureType = BoardStructureType::Row;
+                            solution.StructureType = StructureType::Row;
                             methodSolutions.push_back(solution);
                         }
                     }
@@ -292,7 +292,7 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                         if (l == 81)
                             existMethod = true;
                         for (auto & methodSolution : methodSolutions)
-                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == BoardStructureType::Column)
+                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Column)
                                 existMethod = true;
 
                         if (!existMethod)
@@ -300,7 +300,7 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                             MethodSolutionDto solution;
                             solution.Candidates = singleMethod;
                             solution.CandidatesToDelete = singleMethodDel;
-                            solution.StructureType = BoardStructureType::Column;
+                            solution.StructureType = StructureType::Column;
                             methodSolutions.push_back(solution);
                         }
                     }
@@ -362,7 +362,7 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                                 if (l == 81)
                                     existMethod = true;
                                 for (auto & methodSolution : methodSolutions)
-                                    if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == BoardStructureType::Square)
+                                    if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Square)
                                         existMethod = true;
 
                                 if (!existMethod)
@@ -370,9 +370,389 @@ std::vector<MethodSolutionDto> MethodsExtension::LockedCandidate(std::array<std:
                                     MethodSolutionDto solution;
                                     solution.Candidates = singleMethod;
                                     solution.CandidatesToDelete = singleMethodDel;
-                                    solution.StructureType = BoardStructureType::Square;
+                                    solution.StructureType = StructureType::Square;
                                     methodSolutions.push_back(solution);
                                 }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return methodSolutions;
+}
+
+std::vector<MethodSolutionDto> MethodsExtension::NakedPair(std::array<std::array<int, 9>, 9> numbers) 
+{
+    auto candidates = FindCandidates(numbers);
+    std::vector<MethodSolutionDto> methodSolutions;
+    
+    for (int i = 0;i < 9;i++) //iteracja po wierszu
+    {
+        for (int j = 0;j < 9;j++) //iteracja po kolumnie
+        {
+            if (candidates[i][j].size() == 2) // szukamy takiego pola które posiada 2 kandydatów
+            {
+                for (int a = 0;a < 9;a++) //ponowna iteracja po polach w wierszu
+                {
+                    if (candidates[i][j] == candidates[i][a] && j != a) //szukane pole ma takich samych kandydatów i nie jest polem pierwotnym
+                    {
+                        int e1 = candidates[i][j][0]; // zapisanie tych kandydatów
+                        int e2 = candidates[i][j][1];
+                        std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                        singleMethod[i][j].push_back(e1);
+                        singleMethod[i][j].push_back(e2);
+                        singleMethod[i][a].push_back(e1);
+                        singleMethod[i][a].push_back(e2);
+
+                        bool existMethod = false;
+                        for (auto & methodSolution : methodSolutions)
+                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Row)
+                                existMethod = true;
+                        if (!existMethod)
+                        {
+                            std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+                            for (int b = 0;b < 9;b++)
+                            {
+                                for (int c = 0;c < candidates[i][b].size();c++) //usuwanie zapisanych kandydatów z pól (oprócz tych pól które zawieraj¹ dok³adnie tych kandydatów)
+                                {
+                                    if (b != j && b != a)
+                                    {
+                                        if (candidates[i][b][c] == e1)
+                                            singleMethodDel[i][b].push_back(e1);
+                                        else if (candidates[i][b][c] == e2)
+                                            singleMethodDel[i][b].push_back(e2);
+                                    }
+                                }
+                            }
+                            MethodSolutionDto solution;
+                            solution.Candidates = singleMethod;
+                            solution.StructureType = StructureType::Row;
+                            solution.CandidatesToDelete = singleMethodDel;
+                            methodSolutions.push_back(solution);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    //to samo tylko po kolumnach
+    for (int j = 0;j < 9;j++)
+    {
+        for (int i = 0;i < 9;i++)
+        {
+            if (candidates[i][j].size() == 2)
+            {
+                for (int a = 0;a < 9;a++)
+                {
+                    if (candidates[i][j] == candidates[a][j] && i != a)
+                    {
+                        int e1 = candidates[i][j][0];
+                        int e2 = candidates[i][j][1];
+                        std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                        singleMethod[i][j].push_back(e1);
+                        singleMethod[i][j].push_back(e2);
+                        singleMethod[a][j].push_back(e1);
+                        singleMethod[a][j].push_back(e2);
+
+                        bool existMethod = false;
+                        for (auto & methodSolution : methodSolutions)
+                            if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Column)
+                                existMethod = true;
+                        if (!existMethod)
+                        {
+                            std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+                            for (int b = 0;b < 9;b++)
+                            {
+                                for (int c = 0;c < candidates[b][j].size();c++)
+                                {
+                                    if (b != i && b != a)
+                                    {
+                                        if (candidates[b][j][c] == e1)
+                                            singleMethodDel[b][j].push_back(e1);
+                                        else if (candidates[b][j][c] == e2)
+                                            singleMethodDel[b][j].push_back(e2);
+                                    }
+                                }
+                            }
+                            MethodSolutionDto solution;
+                            solution.Candidates = singleMethod;
+                            solution.StructureType = StructureType::Column;
+                            solution.CandidatesToDelete = singleMethodDel;
+                            methodSolutions.push_back(solution);
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    for (int y = 0;y <= 6;y += 3) // x,y - pêtle odpowiedzialne za przemieszczanie siê pobiêdzy 9 boxami 
+    {
+        for (int x = 0;x <= 6;x += 3)
+        {
+            for (int i = y;i < y + 3;i++) // iterazja poszczególnych pól w boxie
+            {
+                for (int j = x;j < x + 3;j++)
+                {
+                    if (candidates[i][j].size() == 2) // szukamy takiego pola które posiada 2 kandydatów
+                    {
+                        for (int a = y;a < y + 3;a++) //ponowna iteracja po polach w boxie by znaleœæ pole z takimi samymi kandydatami
+                        {
+                            for (int b = x;b < x + 3;b++)
+                            {
+                                if (candidates[i][j] == candidates[a][b] && i != a && a != b) //szukane pole ma takich samych kandydatów i nie jest polem pierwotnym
+                                {
+                                    int e1 = candidates[i][j][0]; //zapisanie tych kandydatów
+                                    int e2 = candidates[i][j][1];
+                                    std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                                    singleMethod[i][j].push_back(e1);
+                                    singleMethod[i][j].push_back(e2);
+                                    singleMethod[a][b].push_back(e1);
+                                    singleMethod[a][b].push_back(e2);
+
+                                    bool existMethod = false;
+                                    for (auto & methodSolution : methodSolutions)
+                                        if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Square)
+                                            existMethod = true;
+                                    if (!existMethod)
+                                    {
+                                        std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+                                        for (int c = y;c < y + 3;c++) //iteracja po polach w boxie
+                                        {
+                                            for (int d = x;d < x + 3;d++)
+                                            {
+                                                for (int e = 0;e < candidates[c][d].size();e++) //usuwanie zapisanych kandydatów z pól (oprócz tych pól które zawieraj¹ dok³adnie tych kandydatów)
+                                                {
+                                                    if (candidates[c][d] != candidates[i][j] && candidates[c][d] != candidates[a][b] && (candidates[c][d][e] == e1 || candidates[c][d][e] == e2))
+                                                    {
+                                                        if (candidates[c][d][e] == e1)
+                                                            singleMethodDel[c][d].push_back(e1);
+                                                        else if (candidates[c][d][e] == e2)
+                                                            singleMethodDel[c][d].push_back(e2);
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        MethodSolutionDto solution;
+                                        solution.Candidates = singleMethod;
+                                        solution.StructureType = StructureType::Square;
+                                        solution.CandidatesToDelete = singleMethodDel;
+                                        methodSolutions.push_back(solution);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return methodSolutions;
+}
+
+std::vector<MethodSolutionDto> MethodsExtension::NakedTriple(std::array<std::array<int, 9>, 9> numbers) 
+{
+    auto candidates = FindCandidates(numbers);
+    std::vector<MethodSolutionDto> methodSolutions;
+    
+    for (int i = 0;i < 9;i++)
+    {
+        for (int j = 0;j < 9;j++)
+        {
+            if (candidates[i][j].size() == 3) //pola o wiekoœci 3
+            {
+                std::vector<int> line;
+                for (int a = 0;a < 9;a++)
+                {
+                    if (candidates[i][a] == candidates[i][j]) //je¿eli pole jest takie samo
+                    {
+                        line.push_back(a);
+                    }
+                    if (candidates[i][a].size() == 2) // je¿eli pole jes wielkoœci 2
+                    {
+                        int exist = 0;
+                        for (int b = 0;b < candidates[i][a].size();b++)
+                            if (HelperFunctionsExtension::IsContained(candidates[i][j], candidates[i][a][b]))
+                                exist++;
+                        if (exist == 2) // to pole zawiera 2 takich samych kandydatów jak pole pierwotne
+                            line.push_back(a);
+                    }
+                }
+                if (line.size() == 3) // je¿eli istniej¹ 3 takie pola
+                {
+                    std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                    std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+
+                    for(int q = 0;q<3;q++)
+                        for(int l = 0;l<candidates[i][line[q]].size();l++)
+                            singleMethod[i][line[q]].push_back(candidates[i][line[q]][l]);
+
+                    bool existMethod = false;
+                    for (auto & methodSolution : methodSolutions)
+                        if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Row)
+                            existMethod = true;
+                    if (!existMethod)
+                    {
+                        for (int a = 0;a < 9;a++)
+                            if (a != line[0] && a != line[1] && a != line[2])
+                                for (int b = 0;b < candidates[i][a].size();b++)
+                                {
+                                    if (candidates[i][a][b] == candidates[i][j][0])
+                                        singleMethodDel[i][a].push_back(candidates[i][a][b]);
+                                    if (candidates[i][a][b] == candidates[i][j][1])
+                                        singleMethodDel[i][a].push_back(candidates[i][a][b]);
+                                    if (candidates[i][a][b] == candidates[i][j][2])
+                                        singleMethodDel[i][a].push_back(candidates[i][a][b]);
+                                }
+
+                        MethodSolutionDto solution;
+                        solution.Candidates = singleMethod;
+                        solution.StructureType = StructureType::Row;
+                        solution.CandidatesToDelete = singleMethodDel;
+                        methodSolutions.push_back(solution);
+                    }
+                }
+            }
+        }
+    }
+
+    std::vector<std::array<std::array<std::vector<int>, 9>, 9>> col;
+    for (int j = 0;j < 9;j++)
+    {
+        for (int i = 0;i < 9;i++)
+        {
+            if (candidates[i][j].size() == 3)
+            {
+                std::vector<int> line;
+                for (int a = 0;a < 9;a++)
+                {
+                    if (candidates[a][j] == candidates[i][j])
+                    {
+                        line.push_back(a);
+                    }
+                    if (candidates[a][j].size() == 2)
+                    {
+                        int exist = 0;
+                        for (int b = 0;b < candidates[a][j].size();b++)
+                            if (HelperFunctionsExtension::IsContained(candidates[i][j], candidates[a][j][b]))
+                                exist++;
+                        if (exist == 2)
+                            line.push_back(a);
+                    }
+                }
+                if (line.size() == 3)
+                {
+                    std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                    std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+
+                    for (int q = 0;q < 3;q++)
+                        for (int l = 0;l < candidates[line[q]][j].size();l++)
+                            singleMethod[line[q]][j].push_back(candidates[line[q]][j][l]);
+
+                    bool existMethod = false;
+                    for (auto & methodSolution : methodSolutions)
+                        if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Column)
+                            existMethod = true;
+
+                    if (!existMethod)
+                    {
+                        for (int a = 0;a < 9;a++)
+                            if (a != line[0] && a != line[1] && a != line[2])
+                                for (int b = 0;b < candidates[i][a].size();b++)
+                                {
+                                    if (candidates[a][j][b] == candidates[i][j][0])
+                                        singleMethodDel[a][j].push_back(candidates[a][j][b]);
+                                    if (candidates[a][j][b] == candidates[i][j][1])
+                                        singleMethodDel[a][j].push_back(candidates[a][j][b]);
+                                    if (candidates[a][j][b] == candidates[i][j][2])
+                                        singleMethodDel[a][j].push_back(candidates[a][j][b]);
+                                }
+
+                        MethodSolutionDto solution;
+                        solution.Candidates = singleMethod;
+                        solution.StructureType = StructureType::Column;
+                        solution.CandidatesToDelete = singleMethodDel;
+                        methodSolutions.push_back(solution);
+                    }
+                }
+            }
+        }
+    }
+
+    for (int y = 0;y <= 6;y += 3) // x,y - pêtle odpowiedzialne za przemieszczanie siê pobiêdzy 9 boxami 
+    {
+        for (int x = 0;x <= 6;x += 3)
+        {
+            for (int i = y;i < y + 3;i++) // iterazja poszczególnych pól w boxie
+            {
+                for (int j = x;j < x + 3;j++)
+                {
+                    if (candidates[i][j].size() == 3)
+                    {
+                        std::vector<std::vector<int>>box;
+                        for (int a = y;a < y + 3;a++)
+                        {
+                            for (int b = x;b < x + 3;b++)
+                            {
+                                if (candidates[a][b] == candidates[i][j])
+                                {
+                                    box.push_back(candidates[a][b]);
+                                }
+                                if (candidates[a][b].size() == 2)
+                                {
+                                    int exist = 0;
+                                    for (int c = 0;c < candidates[a][b].size();c++)
+                                        if (HelperFunctionsExtension::IsContained(candidates[i][j], candidates[a][b][c]))
+                                            exist++;
+                                    if (exist == 2)
+                                    {
+                                        box.push_back(candidates[a][b]);
+                                    }
+                                }
+                            }
+                        }
+                        if (box.size() == 3)
+                        {
+                            std::array<std::array<std::vector<int>, 9>, 9 > singleMethod;
+                            std::array<std::array<std::vector<int>, 9>, 9 > singleMethodDel;
+
+                            for (int a = y;a < y + 3;a++)
+                                for (int b = x;b < x + 3;b++)
+                                    for (int q = 0;q < 3;q++)
+                                        if (candidates[a][b] == box[q])
+                                            for (int l = 0;l < candidates[a][b].size();l++)
+                                                singleMethod[a][b].push_back(candidates[a][b][l]);
+
+                            bool existMethod = false;
+                            for (auto & methodSolution : methodSolutions)
+                                if (methodSolution.Candidates == singleMethod && methodSolution.StructureType == StructureType::Square)
+                                    existMethod = true;
+
+                            if (!existMethod)
+                            {
+                                for (int a = y;a < y + 3;a++)
+                                    for (int b = x;b < x + 3;b++)
+                                        if (candidates[a][b] != box[0] && candidates[a][b] != box[1] && candidates[a][b] != box[2])
+                                            for (int c = 0;c < candidates[a][b].size();c++)
+                                            {
+                                                if (candidates[a][b][c] == candidates[i][j][0])
+                                                    singleMethodDel[a][b].push_back(candidates[a][b][c]);
+                                                if (candidates[a][b][c] == candidates[i][j][1])
+                                                    singleMethodDel[a][b].push_back(candidates[a][b][c]);
+                                                if (candidates[a][b][c] == candidates[i][j][2])
+                                                    singleMethodDel[a][b].push_back(candidates[a][b][c]);
+                                            }
+
+                                MethodSolutionDto solution;
+                                solution.Candidates = singleMethod;
+                                solution.StructureType = StructureType::Square;
+                                solution.CandidatesToDelete = singleMethodDel;
+                                methodSolutions.push_back(solution);
                             }
                         }
                     }
