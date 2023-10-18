@@ -20,6 +20,7 @@
 #include "Shared/Enums/MethodType.h"
 #include "Objects/MethodObjects/MethodText.h"
 #include <array>
+#include <cctype>
 
 class Sudoku {
 

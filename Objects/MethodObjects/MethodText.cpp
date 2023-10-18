@@ -14,7 +14,7 @@ std::array<MethodText, 3> MethodText::InitMethodText()
     for (int i = 0;i < 3;i++)
     {
         methodTextList[i]._text.setFont(_font);
-        methodTextList[i]._text.setPosition(sf::Vector2f(270.f, 720.f+i*35));
+        methodTextList[i]._text.setPosition(sf::Vector2f(240.f, 720.f+i*35));
         methodTextList[i]._text.setCharacterSize(32);
         methodTextList[i]._text.setFillColor(sf::Color::White);
     }

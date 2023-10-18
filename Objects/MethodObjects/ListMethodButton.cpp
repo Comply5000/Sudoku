@@ -7,7 +7,7 @@
 
 void ListMethodButton::Create()
 {
-    _shape.setPosition(50.f, 725.f);
+    _shape.setPosition(20.f, 725.f);
     _shape.setSize(sf::Vector2f(200.f, 100.f));
     _texture.loadFromFile("../Objects/MethodObjects/Textures/none.png");
     _shape.setTexture(&this->_texture);

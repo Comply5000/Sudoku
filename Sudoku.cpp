@@ -634,7 +634,63 @@ void Sudoku::UpdateMethod()
                 }
             }
             std::string text = std::to_string(m + 1) + ". " + box[0] + ", " + box[1] + " and " + box[2] + " create triple in " +
-                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);;
+                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);
+            _methodStringList.push_back(text);
+        }
+    }
+    if(_methodType == MethodType::LockedPair)
+    {
+        _methodSolutions = MethodsExtension::LockedPair(_numbers);
+
+        for (int m = 0; m < _methodSolutions.size(); m++)
+        {
+            std::vector<std::string> box;
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
+                    {
+                        std::string t = "R" + std::to_string(i + 1) + "C" + std::to_string(j + 1);
+                        box.push_back(t);
+                    }
+                }
+            }
+            std::string text = std::to_string(m + 1) + ". " + box[0] + " and " + box[1] + " create hidden pair in " +
+                    HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);
+            _methodStringList.push_back(text);
+        }
+    }
+    if(_methodType == MethodType::XWing)
+    {
+        _methodSolutions = MethodsExtension::XWing(_numbers);
+
+        for (int m = 0; m < _methodSolutions.size(); m++)
+        {
+            int number;
+            std::vector<std::string> box;
+            for (int i = 0; i < 9; i++)
+            {
+                for (int j = 0; j < 9; j++)
+                {
+                    if (!_methodSolutions[m].Candidates[i][j].empty())
+                    {
+                        number = _methodSolutions[m].Candidates[i][j][0];
+                        std::string t;
+                        if (_methodSolutions[m].StructureType == StructureType::Row)
+                            t = std::to_string(i + 1);
+                        else if (_methodSolutions[m].StructureType == StructureType::Column)
+                            t = std::to_string(j + 1);
+                        box.push_back(t);
+                        break;
+                    }
+                }
+            }
+            auto structureTypeName = HelperFunctionsExtension::EnumToString( _methodSolutions[m].StructureType, EnumsToStrings::StructureTypes);
+            structureTypeName[0] = std::toupper(structureTypeName[0]);
+            std::string text = std::to_string(m + 1) + ". "+
+                    structureTypeName
+                    + " " + box[0] + " and " + box[1] + " create X-Wing with number " + std::to_string(number);
             _methodStringList.push_back(text);
         }
     }

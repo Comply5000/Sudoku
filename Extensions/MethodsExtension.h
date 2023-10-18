@@ -18,6 +18,8 @@ public:
     static std::vector<MethodSolutionDto> LockedCandidate(std::array<std::array<int,9>,9> numbers);
     static std::vector<MethodSolutionDto> NakedPair(std::array<std::array<int,9>,9> numbers);
     static std::vector<MethodSolutionDto> NakedTriple(std::array<std::array<int,9>,9> numbers);
+    static std::vector<MethodSolutionDto> LockedPair(std::array<std::array<int,9>,9> numbers);
+    static std::vector<MethodSolutionDto> XWing(std::array<std::array<int,9>,9> numbers);
 };
 
 

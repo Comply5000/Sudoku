@@ -12,6 +12,8 @@ enum MethodType{
     LockedCandidate = 3,
     NakedPair = 4,
     NakedTriple = 5,
+    LockedPair = 6,
+    XWing = 7,
 };
 
 #endif //SUDOKU_METHODTYPE_H
