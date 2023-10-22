@@ -638,9 +638,9 @@ void Sudoku::UpdateMethod()
             _methodStringList.push_back(text);
         }
     }
-    if(_methodType == MethodType::LockedPair)
+    if(_methodType == MethodType::HiddenPair)
     {
-        _methodSolutions = MethodsExtension::LockedPair(_numbers);
+        _methodSolutions = MethodsExtension::HiddenPair(_numbers);
 
         for (int m = 0; m < _methodSolutions.size(); m++)
         {

@@ -12,7 +12,7 @@ enum MethodType{
     LockedCandidate = 3,
     NakedPair = 4,
     NakedTriple = 5,
-    LockedPair = 6,
+    HiddenPair = 6,
     XWing = 7,
 };
 

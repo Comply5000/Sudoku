@@ -763,7 +763,7 @@ std::vector<MethodSolutionDto> MethodsExtension::NakedTriple(std::array<std::arr
     return methodSolutions;
 }
 
-std::vector<MethodSolutionDto> MethodsExtension::LockedPair(std::array<std::array<int, 9>, 9> numbers)
+std::vector<MethodSolutionDto> MethodsExtension::HiddenPair(std::array<std::array<int, 9>, 9> numbers)
 {
     auto candidates = FindCandidates(numbers);
     std::vector<MethodSolutionDto> methodSolutions;
