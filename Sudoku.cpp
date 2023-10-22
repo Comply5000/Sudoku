@@ -731,7 +731,7 @@ void Sudoku::UpdateStartPosition()
             {
                 _startPoint--;
                 for (int i = 0;i < 3;i++)
-                    this->_methodNumber[i]--;
+                    _methodNumber[i]--;
             }
         }
     }
