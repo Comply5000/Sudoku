@@ -15,9 +15,9 @@
 class CandidateBox : public BaseObject{
 public:
     void Create() override;
-    static std::array<std::array<std::vector<CandidateBox>, 9>, 9> UpdateCandidates(std::array<std::array<int, 9>, 9> numbers,std::array<std::array<BoxObject, 9>, 9> boxes);
-    void SetNumberTexture(int number);
-    void SetCheckedNumberTexture(int number);
+    static std::array<std::array<std::vector<CandidateBox>, 9>, 9> UpdateCandidates(std::array<std::array<int, 9>, 9> numbers,std::array<std::array<BoxObject, 9>, 9> boxes); //aktualizacja pól kandydatów
+    void SetNumberTexture(int number); // zmiana bazowej tekstury w zależności od liczby
+    void SetCheckedNumberTexture(int number); // zmiana dodatkowej (kliknięty obiekt) tekstury w zależności od liczby
 };
 
 

@@ -68,29 +68,29 @@ class Sudoku {
 
 
     //functions
-    void InitWindow();
-    sf::Vector2f GetMousePosition();
-    void PoolEvent();
-    void ResetBoard();
+    void InitWindow(); //inicjalizacja okna aplikacji, ustawienie rozmiaru, tytułu okna itp.
+    sf::Vector2f GetMousePosition(); // zwrócenie pozycji myszy na oknie, lewy górny róg to (0,0)
+    void PoolEvent(); // obsługa eventów aplikacji takich jak jej zamknięcie, czy sprawdzanie czy przycisk został puszczony
+    void ResetBoard(); // zresetowanie wszystkich wartości planszy (numerów, wybranych metod, zaznaczonych kandydatów)
 
-    void HoverMenuButtons();
-    void ClickMenuButtons();
-    void ClickBoxes();
-    void ClickCandidatesAndUpdateColor();
-    void UpdateBoxes();
-    void ClickMethodButtons();
-    void UpdateMethod();
-    void UpdateMethodTextList();
-    void UpdateStartPosition();
-    void ClickMethodText();
-    void ClearIsCandidateSelectedForMethod();
+    void HoverMenuButtons(); // obsługa zmiany tekstur w momencie najechania na przyciski menu
+    void ClickMenuButtons(); // obsługa kliknięcia przycisków menu, wywoływanie metod w zależnoći od wybranego przycisku
+    void ClickBoxes(); // obsługa kliknięcia pól numerycznych, zmiany zaznaczonego pola przy użyciu klawiatury lub myszy, uzupełnianie planszy numerami
+    void ClickCandidatesAndUpdateColor(); // obsługa kliknięcia kandydatów i aktualizacja ich kolorów
+    void UpdateBoxes(); //zmiana tekstur pól z numerami w zależności od _numbers
+    void ClickMethodButtons(); // mechanizm rozwijanej listy z dostępnymi metodami
+    void UpdateMethod(); // obsługa kliknięcia przycisków metod, wywoływanie metod z klasy MethodsExtension i zapisywanie rozwiązań w _methodSolutions, ustawianie tekstu do wyświetlania w _methodStringList
+    void UpdateMethodTextList(); // aktualizacja _methodTextList w zależności od wartości zmiennej _startPoint
+    void UpdateStartPosition();  // zmiana pozycji startowej w momęcie klikniecia przycisków Up Down
+    void ClickMethodText(); //wybranie danej metody i podświetlenie jej na zielono, a także podświetlenie kandydatów
+    void ClearIfCandidateSelectedForMethod(); // wyczyszczenie podświetlonych kandydatów, i reset wybranej metody
 
 public:
-    Sudoku();
-    ~Sudoku();
-    bool IsRunning() const;
-    void Update();
-    void Render();
+    Sudoku(); // inicjalizacja wszystkich obiektów
+    ~Sudoku(); // usunięcie wszystkich obiektów
+    bool IsRunning(); // zwrócenie stałej wartości bool w zależności od tego czy okno jest wyświetlone
+    void Update(); // aktualizacja całej planszy
+    void Render(); // wyświetlanie obiektów
 
 };
 

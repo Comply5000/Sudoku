@@ -13,7 +13,7 @@ class BoxTextures {
 public:
     static sf::Texture Textures[10];
 
-    static void InitBoxTextures();
+    static void InitBoxTextures(); //inicjacja tekstur numerycznych
 };
 
 

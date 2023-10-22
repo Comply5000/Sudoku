@@ -13,7 +13,7 @@ class MethodButton : public BaseObject{
     void Create() override;
 
 public:
-    static std::array<MethodButton, 7> InitMethodButtons();
+    static std::array<MethodButton, 7> InitMethodButtons(); // inicjacja przycisków metod (lista rozwijana)
 };
 
 

@@ -13,7 +13,7 @@ class ListMethodButton : public BaseObject {
 
 public:
     ListMethodButton();
-    void SetMethodTexture(int number);
+    void SetMethodTexture(int number); //ustawienie tekstury w zależności od wybranej metody
 };
 
 

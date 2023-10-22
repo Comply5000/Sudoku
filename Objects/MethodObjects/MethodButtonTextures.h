@@ -14,7 +14,7 @@ class MethodButtonTextures{
 public:
     static sf::Texture Textures[7];
 
-    static void InitMethodButtonTextures();
+    static void InitMethodButtonTextures(); // inicjalizacja tekstur dla przycisków metod
 };
 
 

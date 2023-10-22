@@ -14,7 +14,7 @@ public:
     static sf::Texture Textures[10];
     static sf::Texture CheckedTextures[10];
 
-    static void InitCandidateBoxTextures();
+    static void InitCandidateBoxTextures(); // inicjalizacja pól kandydatów
 };
 
 

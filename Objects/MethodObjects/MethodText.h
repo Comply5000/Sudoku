@@ -15,10 +15,10 @@ class MethodText {
     static sf::Font _font;
 
 public:
-    static std::array<MethodText, 3> InitMethodText();
-    sf::Text GetText();
-    void SetString(const std::string& value);
-    bool IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton);
+    static std::array<MethodText, 3> InitMethodText(); //inicjalizacja tekstu wyświetlającego metody
+    sf::Text GetText(); // zwracanie tekstu _text
+    void SetString(const std::string& value); // ustawienie wartości dla _text
+    bool IsClicked(sf::Vector2f mousePosition, sf::Mouse::Button mouseButton); //sprawdzenie czy tekst został kliknięty
     void SetWhiteColor();
     void SetGreenColor();
 };
