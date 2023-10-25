@@ -199,7 +199,7 @@ void Sudoku::ClickMenuButtons()
     {
         ClearIfCandidateSelectedForMethod();
         _numbers = FileExtension::LoadBoard(_numbers);
-        //UpdateBoxes();
+        _invalidNumbers = SolverExtension::ValidateBoard(_numbers);
     }
 
     if(_solveButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
@@ -207,7 +207,6 @@ void Sudoku::ClickMenuButtons()
         _isAnyButtonPressed = true;
         ClearIfCandidateSelectedForMethod();
         _numbers = SolverExtension::SolveBoard(_numbers);
-        //UpdateBoxes();
     }
 }
 
@@ -443,6 +442,7 @@ void Sudoku::ResetBoard() {
     for (int i = 0; i < 9; i++) {
         for (int j = 0; j < 9; j++) {
             _boxes[i][j].SetNumberTexture(0);
+            _invalidNumbers[i][j] = false;
             _numbers[i][j] = 0;
             for (int k = 1;k < 10;k++)
                 _isCandidateChecked[i][j][k] = false;
@@ -782,7 +782,7 @@ void Sudoku::UpdateBoxNumber(int number)
     _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(number);
     ClearIfCandidateSelectedForMethod();
     _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = number;
-    //_invalidNumbers = SolverExtension::IsValid(_numbers, _checkedBoxCoordinates.Y, _checkedBoxCoordinates.X).InvalidNumbers;
+    _invalidNumbers = SolverExtension::ValidateBoard(_numbers);
 }
 
 

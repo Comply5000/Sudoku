@@ -107,3 +107,73 @@ bool SolverExtension::CheckConstraint(std::array<std::array<int, 9>, 9> &numbers
     }
     return true;
 }
+
+std::array<std::array<bool, 9>, 9> SolverExtension::ValidateBoard(std::array<std::array<int, 9>, 9> numbers)
+{
+    std::array<std::array<bool, 9>, 9> invalidNumbers {};
+
+    for(int row = 0;row < 9;row++)
+    {
+        for(int col = 0;col < 9;col++)
+        {
+            if(numbers[row][col] != 0)
+            {
+                for(int a = 0;a<9;a++)
+                {
+                    if(numbers[row][col] == numbers[row][a] && col != a)
+                    {
+                        invalidNumbers[row][col] = true;
+                        invalidNumbers[row][a] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    for(int row = 0;row < 9;row++)
+    {
+        for(int col = 0;col < 9;col++)
+        {
+            if(numbers[row][col] != 0)
+            {
+                for(int a = 0;a<9;a++)
+                {
+                    if(numbers[row][col] == numbers[a][col] && row != a)
+                    {
+                        invalidNumbers[row][col] = true;
+                        invalidNumbers[a][col] = true;
+                    }
+                }
+            }
+        }
+    }
+
+    for(int y = 0; y <= 6; y+=3)
+    {
+        for(int x = 0;x <= 6; x+=3)
+        {
+            for(int row = y; row < y + 3; row++)
+            {
+                for(int col = x; col < x + 3; col++)
+                {
+                    if(numbers[row][col] != 0)
+                    {
+                        for(int a = y; a < y + 3; a++)
+                        {
+                            for(int b = x; b < x + 3; b++)
+                            {
+                                if(numbers[row][col] == numbers[a][b] && row != a && col != b)
+                                {
+                                    invalidNumbers[row][col] = true;
+                                    invalidNumbers[a][b] = true;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return invalidNumbers;
+}

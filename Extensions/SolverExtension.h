@@ -16,6 +16,7 @@ class SolverExtension {
 
 public:
     static std::array<std::array<int, 9>, 9> SolveBoard(std::array<std::array<int, 9>, 9> numbers); //wywołanie IsSolvable i zwrócenie rozwiązanie planszy jeżeli dało się ją rozwiązać lub zwrócenie starej planszy
+    static std::array<std::array<bool, 9>, 9> ValidateBoard(std::array<std::array<int, 9>, 9> numbers);
 };
 
 #endif //SUDOKU_SOLVEREXTENSION_H
