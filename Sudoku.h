@@ -31,6 +31,7 @@ class Sudoku {
     bool _isAnyButtonPressed = false;
     Coordinates _checkedBoxCoordinates;
     std::array<std::array<int,9>,9> _numbers = {};
+    std::array<std::array<bool,9>,9> _invalidNumbers = {};
     bool _isCandidatesShow = false;
 
     //objects
@@ -76,6 +77,7 @@ class Sudoku {
     void HoverMenuButtons(); // obsługa zmiany tekstur w momencie najechania na przyciski menu
     void ClickMenuButtons(); // obsługa kliknięcia przycisków menu, wywoływanie metod w zależnoći od wybranego przycisku
     void ClickBoxes(); // obsługa kliknięcia pól numerycznych, zmiany zaznaczonego pola przy użyciu klawiatury lub myszy, uzupełnianie planszy numerami
+    void UpdateBoxNumber(int number);
     void ClickCandidatesAndUpdateColor(); // obsługa kliknięcia kandydatów i aktualizacja ich kolorów
     void UpdateBoxes(); //zmiana tekstur pól z numerami w zależności od _numbers
     void ClickMethodButtons(); // mechanizm rozwijanej listy z dostępnymi metodami

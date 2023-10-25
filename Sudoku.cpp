@@ -66,6 +66,7 @@ void Sudoku::Update() {
     UpdateMethod();
     UpdateStartPosition();
     ClickMethodText();
+    UpdateBoxes();
 }
 
 void Sudoku::Render() {
@@ -198,7 +199,7 @@ void Sudoku::ClickMenuButtons()
     {
         ClearIfCandidateSelectedForMethod();
         _numbers = FileExtension::LoadBoard(_numbers);
-        UpdateBoxes();
+        //UpdateBoxes();
     }
 
     if(_solveButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
@@ -206,7 +207,7 @@ void Sudoku::ClickMenuButtons()
         _isAnyButtonPressed = true;
         ClearIfCandidateSelectedForMethod();
         _numbers = SolverExtension::SolveBoard(_numbers);
-        UpdateBoxes();
+        //UpdateBoxes();
     }
 }
 
@@ -366,63 +367,43 @@ void Sudoku::ClickBoxes()
     {
         if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num0))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(0);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 0;
+            UpdateBoxNumber(0);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num1))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(1);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 1;
+            UpdateBoxNumber(1);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num2))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(2);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 2;
+            UpdateBoxNumber(2);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num3))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(3);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 3;
+            UpdateBoxNumber(3);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num4))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(4);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 4;
+            UpdateBoxNumber(4);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num5))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(5);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 5;
+            UpdateBoxNumber(5);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num6))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(6);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 6;
+            UpdateBoxNumber(6);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num7))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(7);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 7;
+            UpdateBoxNumber(7);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num8))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(8);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 8;
+            UpdateBoxNumber(8);
         }
         else if (sf::Keyboard::isKeyPressed(sf::Keyboard::Num9))
         {
-            _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(9);
-            ClearIfCandidateSelectedForMethod();
-            _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = 9;
+            UpdateBoxNumber(9);
         }
     }
 }
@@ -478,6 +459,12 @@ void Sudoku::UpdateBoxes()
         for(int j = 0; j < 9; j++)
         {
             _boxes[i][j].SetNumberTexture(_numbers[i][j]);
+            if(i == _checkedBoxCoordinates.Y && j == _checkedBoxCoordinates.X)
+                _boxes[i][j].SetGreyColor();
+            else if(_invalidNumbers[i][j])
+                _boxes[i][j].SetRedColor();
+            else
+                _boxes[i][j].SetWhiteColor();
         }
     }
 }
@@ -788,6 +775,14 @@ void Sudoku::ClearIfCandidateSelectedForMethod()
                 _isCandidateSelectedForMethodToDelete[i][j][k] = false;
             }
     _selectedMethodNumber = -1;
+}
+
+void Sudoku::UpdateBoxNumber(int number)
+{
+    _boxes[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X].SetNumberTexture(number);
+    ClearIfCandidateSelectedForMethod();
+    _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = number;
+    //_invalidNumbers = SolverExtension::IsValid(_numbers, _checkedBoxCoordinates.Y, _checkedBoxCoordinates.X).InvalidNumbers;
 }
 
 
