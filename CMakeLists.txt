@@ -57,9 +57,7 @@ add_executable(Sudoku main.cpp
         Objects/MethodObjects/MethodText.cpp
         Objects/MethodObjects/MethodText.h
         Shared/Static/EnumsToStrings.cpp
-        Shared/Static/EnumsToStrings.h
-        Extensions/SolverHelperExtension.cpp
-        Extensions/SolverHelperExtension.h)
+        Shared/Static/EnumsToStrings.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)

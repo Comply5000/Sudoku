@@ -1,20 +1,17 @@
 #include "SolverExtension.h"
-#include "SolverHelperExtension.h"
 #include <iostream>
 
 std::array<std::array<int, 9>, 9> SolverExtension::_numbers = {};
+std::vector<std::array<std::array<int, 9>, 9>> SolverExtension::_solutions = {};
 
 std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::array<int, 9>, 9> numbers)
 {
+    _solutions.clear();
     _numbers = numbers;
-    if (IsSolvable(_numbers))
+    IsSolvable();
+    if (_solutions.size() == 1)
     {
-        auto isUnique = SolverHelperExtension::SolutionCount(numbers);
-
-        if(isUnique)
-            return _numbers; // Zwróć rozwiązanie, jeśli istnieje.
-        else
-            return numbers;
+        return _solutions[0];
     }
     else
     {
@@ -22,28 +19,31 @@ std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::ar
     }
 }
 
-bool SolverExtension::IsSolvable(std::array<std::array<int, 9>, 9> &numbers)
+void SolverExtension::IsSolvable()
 {
-    for (int i = 0; i < 9; i++)
+    if(_solutions.size() < 2)
     {
-        for (int j = 0; j < 9; j++)
+        for (int i = 0; i < 9; i++)
         {
-            if (numbers[i][j] == 0)
+            for (int j = 0; j < 9; j++)
             {
-                for (int k = 1; k <= 9; k++)
+                if (_numbers[i][j] == 0)
                 {
-                    numbers[i][j] = k;
-                    if (IsValid(numbers, i, j) && IsSolvable(numbers))
+                    for (int k = 1; k <= 9; k++)
                     {
-                        return true;
+                        _numbers[i][j] = k;
+                        if (IsValid(_numbers, i, j) )
+                        {
+                            IsSolvable();
+                        }
+                        _numbers[i][j] = 0;
                     }
-                    numbers[i][j] = 0;
+                    return;
                 }
-                return false;
             }
         }
+        _solutions.push_back(_numbers);
     }
-    return true;
 }
 
 bool SolverExtension::IsValid(std::array<std::array<int, 9>, 9> &numbers, int row, int column)
