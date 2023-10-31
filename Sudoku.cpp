@@ -7,6 +7,7 @@
 #include "Extensions/SolverExtension.h"
 #include "Extensions/HelperFunctionsExtension.h"
 #include "Shared/Static/EnumsToStrings.h"
+#include "Extensions/SolverHelperExtension.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
@@ -207,6 +208,10 @@ void Sudoku::ClickMenuButtons()
         _isAnyButtonPressed = true;
         ClearIfCandidateSelectedForMethod();
         _numbers = SolverExtension::SolveBoard(_numbers);
+
+//        auto isUnique = SolverHelperExtension::SolutionCount(_numbers);
+//
+//        auto a = "";
     }
 }
 

@@ -1,4 +1,5 @@
 #include "SolverExtension.h"
+#include "SolverHelperExtension.h"
 #include <iostream>
 
 std::array<std::array<int, 9>, 9> SolverExtension::_numbers = {};
@@ -8,7 +9,12 @@ std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::ar
     _numbers = numbers;
     if (IsSolvable(_numbers))
     {
-        return _numbers; // Zwróć rozwiązanie, jeśli istnieje.
+        auto isUnique = SolverHelperExtension::SolutionCount(numbers);
+
+        if(isUnique)
+            return _numbers; // Zwróć rozwiązanie, jeśli istnieje.
+        else
+            return numbers;
     }
     else
     {
