@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///przycisk do scrolowania przez dostępne metody w górę
 class UpButton : public BaseObject {
     void Create() override;
 

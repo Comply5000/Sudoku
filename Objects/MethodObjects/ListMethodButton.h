@@ -8,12 +8,13 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///przycisk z rozwijanym menu z metodami
 class ListMethodButton : public BaseObject {
     void Create() override;
 
 public:
     ListMethodButton();
-    void SetMethodTexture(int number); //ustawienie tekstury w zależności od wybranej metody
+    void SetMethodTexture(int number); ///ustawienie tekstury w zależności od wybranej metody
 };
 
 

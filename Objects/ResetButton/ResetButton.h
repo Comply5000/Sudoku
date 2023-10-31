@@ -4,6 +4,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///przycisk resetu w menu
 class ResetButton : public BaseObject {
     void Create() override;
 

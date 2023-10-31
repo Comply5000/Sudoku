@@ -5,7 +5,7 @@
 #ifndef SUDOKU_COORDINATES_H
 #define SUDOKU_COORDINATES_H
 
-
+///struktura reprezentująca koordynaty
 struct Coordinates {
     int X = -1;
     int Y = -1;

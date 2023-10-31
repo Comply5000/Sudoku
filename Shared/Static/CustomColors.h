@@ -8,6 +8,7 @@
 
 #include <SFML/Graphics/Color.hpp>
 
+/// kastomowe kolory
 class CustomColors {
 public:
     static sf::Color* GreyColor;

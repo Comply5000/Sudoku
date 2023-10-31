@@ -9,12 +9,12 @@
 #include <array>
 #include <SFML/Graphics/Texture.hpp>
 
+///tekstury metod
 class MethodButtonTextures{
-
 public:
     static sf::Texture Textures[7];
 
-    static void InitMethodButtonTextures(); // inicjalizacja tekstur dla przycisków metod
+    static void InitMethodButtonTextures(); /// inicjalizacja tekstur dla przycisków metod
 };
 
 

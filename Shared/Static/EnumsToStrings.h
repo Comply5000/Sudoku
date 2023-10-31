@@ -10,6 +10,7 @@
 #include <string>
 #include "../Enums/StructureType.h"
 
+///konwersja enum na string
 class EnumsToStrings {
 public:
     static std::map<StructureType, std::string> StructureTypes;

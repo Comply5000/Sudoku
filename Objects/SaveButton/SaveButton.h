@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+/// przycisk zapisu planszy
 class SaveButton : public BaseObject {
     void Create() override;
 

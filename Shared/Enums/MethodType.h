@@ -5,6 +5,7 @@
 #ifndef SUDOKU_METHODTYPE_H
 #define SUDOKU_METHODTYPE_H
 
+///dostępne metody
 enum MethodType{
     NoData = 0,
     NakedSingle = 1,

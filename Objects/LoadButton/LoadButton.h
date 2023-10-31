@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+/// przycisk wczytania planszy
 class LoadButton : public BaseObject {
     void Create() override;
 

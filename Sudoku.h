@@ -22,6 +22,7 @@
 #include <array>
 #include <cctype>
 
+/// główna klasa aplikacji reprezentująca okno i wszystkie elementy w nim
 class Sudoku {
 
     //variables
@@ -69,30 +70,30 @@ class Sudoku {
 
 
     //functions
-    void InitWindow(); //inicjalizacja okna aplikacji, ustawienie rozmiaru, tytułu okna itp.
-    sf::Vector2f GetMousePosition(); // zwrócenie pozycji myszy na oknie, lewy górny róg to (0,0)
-    void PoolEvent(); // obsługa eventów aplikacji takich jak jej zamknięcie, czy sprawdzanie czy przycisk został puszczony
-    void ResetBoard(); // zresetowanie wszystkich wartości planszy (numerów, wybranych metod, zaznaczonych kandydatów)
+    void InitWindow(); ///inicjalizacja okna aplikacji, ustawienie rozmiaru, tytułu okna itp.
+    sf::Vector2f GetMousePosition(); /// zwrócenie pozycji myszy na oknie, lewy górny róg to (0,0)
+    void PoolEvent(); /// obsługa eventów aplikacji takich jak jej zamknięcie, czy sprawdzanie czy przycisk został puszczony
+    void ResetBoard(); /// zresetowanie wszystkich wartości planszy (numerów, wybranych metod, zaznaczonych kandydatów)
 
-    void HoverMenuButtons(); // obsługa zmiany tekstur w momencie najechania na przyciski menu
-    void ClickMenuButtons(); // obsługa kliknięcia przycisków menu, wywoływanie metod w zależnoći od wybranego przycisku
-    void ClickBoxes(); // obsługa kliknięcia pól numerycznych, zmiany zaznaczonego pola przy użyciu klawiatury lub myszy, uzupełnianie planszy numerami
+    void HoverMenuButtons(); /// obsługa zmiany tekstur w momencie najechania na przyciski menu
+    void ClickMenuButtons(); /// obsługa kliknięcia przycisków menu, wywoływanie metod w zależnoći od wybranego przycisku
+    void ClickBoxes(); /// obsługa kliknięcia pól numerycznych, zmiany zaznaczonego pola przy użyciu klawiatury lub myszy, uzupełnianie planszy numerami
     void UpdateBoxNumber(int number);
-    void ClickCandidatesAndUpdateColor(); // obsługa kliknięcia kandydatów i aktualizacja ich kolorów
-    void UpdateBoxes(); //zmiana tekstur pól z numerami w zależności od _numbers
-    void ClickMethodButtons(); // mechanizm rozwijanej listy z dostępnymi metodami
-    void UpdateMethod(); // obsługa kliknięcia przycisków metod, wywoływanie metod z klasy MethodsExtension i zapisywanie rozwiązań w _methodSolutions, ustawianie tekstu do wyświetlania w _methodStringList
-    void UpdateMethodTextList(); // aktualizacja _methodTextList w zależności od wartości zmiennej _startPoint
-    void UpdateStartPosition();  // zmiana pozycji startowej w momęcie klikniecia przycisków Up Down
-    void ClickMethodText(); //wybranie danej metody i podświetlenie jej na zielono, a także podświetlenie kandydatów
-    void ClearIfCandidateSelectedForMethod(); // wyczyszczenie podświetlonych kandydatów, i reset wybranej metody
+    void ClickCandidatesAndUpdateColor(); /// obsługa kliknięcia kandydatów i aktualizacja ich kolorów
+    void UpdateBoxes(); ///zmiana tekstur pól z numerami w zależności od _numbers
+    void ClickMethodButtons(); /// mechanizm rozwijanej listy z dostępnymi metodami
+    void UpdateMethod(); /// obsługa kliknięcia przycisków metod, wywoływanie metod z klasy MethodsExtension i zapisywanie rozwiązań w _methodSolutions, ustawianie tekstu do wyświetlania w _methodStringList
+    void UpdateMethodTextList(); /// aktualizacja _methodTextList w zależności od wartości zmiennej _startPoint
+    void UpdateStartPosition();  /// zmiana pozycji startowej w momęcie klikniecia przycisków Up Down
+    void ClickMethodText(); ///wybranie danej metody i podświetlenie jej na zielono, a także podświetlenie kandydatów
+    void ClearIfCandidateSelectedForMethod(); /// wyczyszczenie podświetlonych kandydatów, i reset wybranej metody
 
 public:
-    Sudoku(); // inicjalizacja wszystkich obiektów
-    ~Sudoku(); // usunięcie wszystkich obiektów
-    bool IsRunning(); // zwrócenie stałej wartości bool w zależności od tego czy okno jest wyświetlone
-    void Update(); // aktualizacja całej planszy
-    void Render(); // wyświetlanie obiektów
+    Sudoku(); /// inicjalizacja wszystkich obiektów
+    ~Sudoku(); /// usunięcie wszystkich obiektów
+    bool IsRunning(); /// zwrócenie stałej wartości bool w zależności od tego czy okno jest wyświetlone
+    void Update(); /// aktualizacja całej planszy
+    void Render(); /// wyświetlanie obiektów
 
 };
 

@@ -10,6 +10,7 @@
 #include <vector>
 #include "../Shared/Enums/StructureType.h"
 
+///dto przechowujące informacje o metodzie rozwiązywania sudoku
 struct MethodSolutionDto {
     std::array<std::array<std::vector<int>,9>,9> Candidates;
     std::array<std::array<std::vector<int>,9>,9> CandidatesToDelete;

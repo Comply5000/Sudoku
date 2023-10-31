@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///checkbox do wyświetlania kandydatów
 class ShowCandidatesCheckBox : public BaseObject {
     void Create() override;
     sf::Text _text;

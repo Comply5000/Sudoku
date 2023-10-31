@@ -9,11 +9,12 @@
 #include "../Abstractions/BaseObject.h"
 #include "MethodButtonTextures.h"
 
+///przycisk w menu z metodami
 class MethodButton : public BaseObject{
     void Create() override;
 
 public:
-    static std::array<MethodButton, 7> InitMethodButtons(); // inicjacja przycisków metod (lista rozwijana)
+    static std::array<MethodButton, 7> InitMethodButtons(); /// inicjacja przycisków metod (lista rozwijana)
 };
 
 

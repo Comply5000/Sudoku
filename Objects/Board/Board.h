@@ -3,6 +3,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+/// klasa reprezentująca planszę
 class Board : public BaseObject {
     void Create() override;
 

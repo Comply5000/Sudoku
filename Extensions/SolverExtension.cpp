@@ -8,7 +8,7 @@ std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::ar
 {
     _solutions.clear();
     _numbers = numbers;
-    IsSolvable();
+    Solve();
     if (_solutions.size() == 1)
     {
         return _solutions[0];
@@ -19,7 +19,7 @@ std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::ar
     }
 }
 
-void SolverExtension::IsSolvable()
+void SolverExtension::Solve()
 {
     if(_solutions.size() < 2)
     {
@@ -34,7 +34,7 @@ void SolverExtension::IsSolvable()
                         _numbers[i][j] = k;
                         if (IsValid(_numbers, i, j) )
                         {
-                            IsSolvable();
+                            Solve();
                         }
                         _numbers[i][j] = 0;
                     }

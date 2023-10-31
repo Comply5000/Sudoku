@@ -9,11 +9,12 @@
 #include "../Abstractions/BaseObject.h"
 #include <array>
 
+/// pole na planszy
 class BoxObject : public BaseObject {
 public:
     void Create() override;
-    static std::array<std::array<BoxObject, 9>, 9> InitBoxes(); //inicjacja pol numerycznych
-    void SetNumberTexture(int number); //zmiana tekstury w zależności od liczby
+    static std::array<std::array<BoxObject, 9>, 9> InitBoxes(); ///inicjacja pol numerycznych
+    void SetNumberTexture(int number); ///zmiana tekstury w zależności od liczby
 };
 
 

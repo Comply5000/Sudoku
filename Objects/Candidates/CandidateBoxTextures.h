@@ -9,12 +9,13 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+///tekstury kandydata
 class CandidateBoxTextures {
 public:
     static sf::Texture Textures[10];
     static sf::Texture CheckedTextures[10];
 
-    static void InitCandidateBoxTextures(); // inicjalizacja pól kandydatów
+    static void InitCandidateBoxTextures(); ///inicjalizacja tekstur kandydatów
 };
 
 

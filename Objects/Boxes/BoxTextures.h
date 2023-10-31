@@ -9,11 +9,12 @@
 #include <SFML/Graphics/Color.hpp>
 #include <SFML/Graphics/Texture.hpp>
 
+///tekstury pól
 class BoxTextures {
 public:
     static sf::Texture Textures[10];
 
-    static void InitBoxTextures(); //inicjacja tekstur numerycznych
+    static void InitBoxTextures(); ///inicjacja tekstur numerycznych
 };
 
 

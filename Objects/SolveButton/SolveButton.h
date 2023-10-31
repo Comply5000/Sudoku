@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///przycisk do rozwiuązywania planszy
 class SolveButton : public BaseObject {
     void Create() override;
 

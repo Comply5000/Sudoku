@@ -8,6 +8,7 @@
 
 #include "../Abstractions/BaseObject.h"
 
+///logo aplikacji
 class Logo : public BaseObject{
     void Create() override;
 
