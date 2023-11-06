@@ -57,7 +57,11 @@ add_executable(Sudoku main.cpp
         Objects/MethodObjects/MethodText.cpp
         Objects/MethodObjects/MethodText.h
         Shared/Static/EnumsToStrings.cpp
-        Shared/Static/EnumsToStrings.h)
+        Shared/Static/EnumsToStrings.h
+        DTOs/SolutionResultDto.h
+        Shared/Enums/SolutionResultType.h
+        Shared/Static/WindowVariables.cpp
+        Shared/Static/WindowVariables.h)
 
 
 set(SFML_STATIC_LIBRARIES TRUE)

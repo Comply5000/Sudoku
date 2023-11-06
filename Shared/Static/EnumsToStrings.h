@@ -9,11 +9,13 @@
 #include <map>
 #include <string>
 #include "../Enums/StructureType.h"
+#include "../Enums/SolutionResultType.h"
 
 ///konwersja enum na string
 class EnumsToStrings {
 public:
     static std::map<StructureType, std::string> StructureTypes;
+    static std::map<SolutionResultType, std::string> SolutionResultType;
 };
 
 

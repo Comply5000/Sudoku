@@ -7,11 +7,12 @@
 #include "Extensions/SolverExtension.h"
 #include "Extensions/HelperFunctionsExtension.h"
 #include "Shared/Static/EnumsToStrings.h"
+#include "Shared/Static/WindowVariables.h"
 
 void Sudoku::InitWindow() {
     _videoMode.height = 850;
     _videoMode.width = 1000;
-    _window = new sf::RenderWindow(_videoMode, "Sudoku solver", sf::Style::Close | sf::Style::Titlebar);
+    _window = new sf::RenderWindow(_videoMode, WindowVariables::Title, sf::Style::Close | sf::Style::Titlebar);
     _window->setFramerateLimit(60);
 }
 
@@ -200,13 +201,18 @@ void Sudoku::ClickMenuButtons()
         ClearIfCandidateSelectedForMethod();
         _numbers = FileExtension::LoadBoard(_numbers);
         _invalidNumbers = SolverExtension::ValidateBoard(_numbers);
+        _window->setTitle(WindowVariables::Title);
     }
 
     if(_solveButton->IsClicked(GetMousePosition(), sf::Mouse::Left) && !_isAnyButtonPressed)
     {
         _isAnyButtonPressed = true;
         ClearIfCandidateSelectedForMethod();
-        _numbers = SolverExtension::SolveBoard(_numbers);
+        auto result = SolverExtension::SolveBoard(_numbers);
+        _numbers = result.Numbers;
+
+        auto title = WindowVariables::Title + HelperFunctionsExtension::EnumToString(result.ResultType, EnumsToStrings::SolutionResultType);
+        _window->setTitle(title);
     }
 }
 
@@ -450,6 +456,7 @@ void Sudoku::ResetBoard() {
     }
 
     ClearIfCandidateSelectedForMethod();
+    _window->setTitle(WindowVariables::Title);
 }
 
 void Sudoku::UpdateBoxes()
@@ -783,6 +790,7 @@ void Sudoku::UpdateBoxNumber(int number)
     ClearIfCandidateSelectedForMethod();
     _numbers[_checkedBoxCoordinates.Y][_checkedBoxCoordinates.X] = number;
     _invalidNumbers = SolverExtension::ValidateBoard(_numbers);
+    _window->setTitle(WindowVariables::Title);
 }
 
 

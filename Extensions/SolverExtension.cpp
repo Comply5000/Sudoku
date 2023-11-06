@@ -1,21 +1,33 @@
 #include "SolverExtension.h"
+#include "../DTOs/SolutionResultDto.h"
 #include <iostream>
 
 std::array<std::array<int, 9>, 9> SolverExtension::_numbers = {};
 std::vector<std::array<std::array<int, 9>, 9>> SolverExtension::_solutions = {};
 
-std::array<std::array<int, 9>, 9> SolverExtension::SolveBoard(std::array<std::array<int, 9>, 9> numbers)
+SolutionResultDto SolverExtension::SolveBoard(std::array<std::array<int, 9>, 9> numbers)
 {
     _solutions.clear();
     _numbers = numbers;
     Solve();
+    SolutionResultDto result{};
     if (_solutions.size() == 1)
     {
-        return _solutions[0];
+        result.Numbers = _solutions[0];
+        result.ResultType = SolutionResultType::Correct;
+        return result;
+    }
+    else if(_solutions.empty())
+    {
+        result.Numbers = numbers;
+        result.ResultType = SolutionResultType::NoSolution;
+        return result;
     }
     else
     {
-        return numbers; // Zwróć oryginalny stan planszy, jeśli sudoku jest nierozwiązywalne.
+        result.Numbers = numbers;
+        result.ResultType = SolutionResultType::ToManySolutions;
+        return result;
     }
 }
 
